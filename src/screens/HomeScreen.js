@@ -1,69 +1,96 @@
-import { View, Text, SafeAreaView, ScrollView, FlatList, StyleSheet, Animated } from 'react-native'
-import React, { use, useRef } from 'react'
-import Feeds from '../components/Feeds'
-import colors from '../constants/colors'
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Stories from '../components/Stories';
-import userData from '../data/userData';
+import {
+  View,
+  SafeAreaView,
+  Animated,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
+import React, { useRef } from 'react';
+import Feeds from '../components/Feeds';
 import Header from '../components/Header';
-
-
-
+import user from '../data/userData';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import userStories from '../data/storiesData';
+import usersPosts from '../data/postsData';
+import Stories from '../components/Stories';
 
 const HomeScreen = () => {
-  const insets = useSafeAreaInsets();
-  const posts = userData.posts;
-  const stories = userData.stories;
-
   const scrollY = useRef(new Animated.Value(0)).current;
+  const tabBarHeight = useBottomTabBarHeight();
 
   const headerTranslateY = scrollY.interpolate({
     inputRange: [0, 80],
-    outputRange: [0, -100], // Move header up by 100px
+    outputRange: [0, -100],
     extrapolate: 'clamp',
   });
 
+  // Your profile (always shown)
+  const myStory = {
+    id: user.id,
+    userName: 'Your Name',
+    profileImage: user.profileImage,
+    hasStory: user.hasStory, // change to true if you want the ring to appear
+  };
+
+  // Final stories array: your story + others (only if hasStory)
+  const stories = [myStory, ...userStories.filter((story) => story.hasStory)];
+
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View style={[styles.headerContainer,{ transform: [{ translateY: headerTranslateY }] }]}>
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+
+      <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslateY }] }]}>
         <Header />
       </Animated.View>
-      {/* <Stories /> */}
+
       <Animated.FlatList
-        data={posts}
-        renderItem={({ item }) => <Feeds post={item} />}
+        data={usersPosts}
         keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <Feeds post={item} />}
         showsVerticalScrollIndicator={false}
-        // ListHeaderComponent={<View style={styles.storiesContainer}></View>}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
         )}
         scrollEventThrottle={16}
-
+        contentContainerStyle={{
+          paddingTop: 50,
+          paddingBottom: tabBarHeight + 20,
+        }}
+        ListHeaderComponent={
+          <View style={styles.storiesWrapper}>
+            <FlatList
+              data={stories}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => <Stories story={item} />}
+              contentContainerStyle={{ paddingHorizontal: 10 }}
+            />
+          </View>
+        }
       />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bgColor,
+    backgroundColor: '#000',
   },
-
-  storiesContainer: {
-    paddingBottom: 10,
-  },
-  headerContainer:{
-      position: 'absolute',
+  header: {
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     zIndex: 10,
-    backgroundColor: colors.bgColor
-  }
-}) 
+    backgroundColor: 'white',
+  },
+  storiesWrapper: {
+    paddingVertical: 8,
+  },
+});

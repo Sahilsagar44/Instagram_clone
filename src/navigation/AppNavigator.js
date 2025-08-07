@@ -14,8 +14,7 @@ import ProfileScreen from './../screens/ProfileScreen';
 import MessageScreen from '../screens/MessageScreen';
 import { Image, View } from 'react-native';
 import colors from '../constants/colors';
-import Feeds from '../components/Feeds';
-import Stories from '../components/Stories';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,8 +29,10 @@ function MainTabNavigator() {
                 borderTopColor: '#333',
                 height: 60,
                 justifyContent: 'center',
+                display:'flex',
                 // marginTop: -10,
             },
+            tabBarHideOnKeyboard:true,
             tabBarShowLabel: false
         }}>
             <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
@@ -46,14 +47,7 @@ function MainTabNavigator() {
 
             <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/search.png')}
-                        style={{
-                            width: 25, height: 25, tintColor: focused ? '#ffffff' : '#999999',
-                            shadowColor: focused ? '#000000' : 'transparent',
-                            shadowOffset: { width: 0, height: 2 },
-                            shadowOpacity: focused ? 0.3 : 0,
-                            shadowRadius: focused ? 4 : 0,
-                        }} />
+                    <Ionicons name={focused ?'search':'search-outline'} color={'white'} size={25}/>
                 )
             }} />
             <Tab.Screen name="ReelsScreen" component={ReelsScreen} options={{
@@ -110,14 +104,15 @@ function MainTabNavigator() {
 }
 const AppNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='HomeScreen' screenOptions={{ headerShown: false, orientation:'portrait'}}>
+        <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, orientation:'portrait'}}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
             <Stack.Screen name="StoryScreen" component={StoryScreen} />
-            <Stack.Screen name="Stories" component={Stories} />
-            <Stack.Screen name="Feeds" component={Feeds} />
-            <Stack.Screen name="HomeScreen" component={MainTabNavigator} />
+            {/* <Stack.Screen name="Stories" component={Stories} />
+            <Stack.Screen name="Feeds" component={Feeds} /> */}
+            <Stack.Screen name="Home" component={MainTabNavigator} />
+            {/* <Stack.Screen name='' */}
         </Stack.Navigator>
     );
 }

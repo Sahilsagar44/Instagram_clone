@@ -10,7 +10,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const handleLogin = () => {
-    navigation.navigate('HomeScreen');
+    navigation.navigate('Home');
   }
   const handleSignUp = () => {
     navigation.navigate('RegisterScreen');
