@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import Reel from '../components/Reel'
 
 const ReelsScreen = () => {
   return (
     <View>
-      <Text>ReelsScreen</Text>
+      <Reel />
     </View>
   )
 }
