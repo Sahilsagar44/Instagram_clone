@@ -1,6 +1,6 @@
 const user = {
   id: 'me',
-  name: 'sahil_dev',
+  userName: 'sahil_dev',
   fullName: 'Sahil Dev',
   bio: 'React Native Developer 💻 | Dreaming in code.',
   profileImage: 'https://randomuser.me/api/portraits/men/15.jpg',

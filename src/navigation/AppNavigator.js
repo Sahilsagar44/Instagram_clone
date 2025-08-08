@@ -15,6 +15,7 @@ import MessageScreen from '../screens/MessageScreen';
 import { Image, View } from 'react-native';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import ExploreGrid from '../components/ExploreGrid';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -112,7 +113,7 @@ const AppNavigator = () => {
             {/* <Stack.Screen name="Stories" component={Stories} />
             <Stack.Screen name="Feeds" component={Feeds} /> */}
             <Stack.Screen name="Home" component={MainTabNavigator} />
-            {/* <Stack.Screen name='' */}
+            <Stack.Screen name="grid" component={ExploreGrid} />
         </Stack.Navigator>
     );
 }

@@ -28,7 +28,7 @@ const HomeScreen = () => {
   // Your profile (always shown)
   const myStory = {
     id: user.id,
-    userName: 'Your Name',
+    userName: 'Your Story',
     profileImage: user.profileImage,
     hasStory: user.hasStory, // change to true if you want the ring to appear
   };
