@@ -3,7 +3,7 @@
 export const reelsData = [
   {
     id: 'reel-1',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4', // sample MP4
+    video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4', // sample MP4
     caption: 'Exploring the mountains 🏔️ #travel #adventure',
     music: 'Original Audio - travel_enthusiast',
     likes: 1520,
@@ -16,7 +16,7 @@ export const reelsData = [
   },
   {
     id: 'reel-2',
-    video: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4',
+    video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     caption: 'Best street food ever 🤤 #foodie #streetfood',
     music: 'Original Audio - foodie_life',
     likes: 980,
@@ -29,7 +29,7 @@ export const reelsData = [
   },
   {
     id: 'reel-3',
-    video: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4',
+    video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4',
     caption: 'Morning workout grind 💪 #fitness #motivation',
     music: 'Gym Beats - DJ Max',
     likes: 2130,

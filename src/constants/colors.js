@@ -17,6 +17,8 @@ const colors = {
   TouchableButtonColor: '#0082FB',
   timeStampColor:'#A8A8A8',
   SearchBar:'#262626',
+  musicBar:'#ddd',
+  followBorder:'white',
   TextInput: {
     backgroundColor: '#2e2d2dff',
     borderColor: '#6B6B6B',

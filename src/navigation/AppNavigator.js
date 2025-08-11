@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 function MainTabNavigator() {
     return (
-        <Tab.Navigator initialRouteName='ReelsScreen' screenOptions={{headerShown: false,  
+        <Tab.Navigator initialRouteName='HomeScreen' screenOptions={{headerShown: false,  
             tabBarStyle: {
                 position: 'absolute', 
                 backgroundColor: colors.bgColor,
