@@ -19,6 +19,7 @@ const colors = {
   SearchBar:'#262626',
   musicBar:'#ddd',
   followBorder:'white',
+  time:'grey',
   TextInput: {
     backgroundColor: '#2e2d2dff',
     borderColor: '#6B6B6B',

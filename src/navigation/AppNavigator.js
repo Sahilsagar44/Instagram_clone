@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 function MainTabNavigator() {
     return (
-        <Tab.Navigator initialRouteName='HomeScreen' screenOptions={{headerShown: false,  
+        <Tab.Navigator initialRouteName='NotificationScreen' screenOptions={{headerShown: false,  
             tabBarStyle: {
                 position: 'absolute', 
                 backgroundColor: colors.bgColor,
@@ -113,7 +113,7 @@ const AppNavigator = () => {
             {/* <Stack.Screen name="Stories" component={Stories} />
             <Stack.Screen name="Feeds" component={Feeds} /> */}
             <Stack.Screen name="Home" component={MainTabNavigator} />
-            <Stack.Screen name="grid" component={ExploreGrid} />
+            {/* <Stack.Screen name="grid" component={ExploreGrid} /> */}
         </Stack.Navigator>
     );
 }
