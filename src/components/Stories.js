@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
   },
   addIconContainer: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 2,
-    zIndex: 2,
+        top: 0,
+        right: 0,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 60,
+        padding: 1,
+        borderWidth: 2,
   },
   addIcon: {
     height: 16,

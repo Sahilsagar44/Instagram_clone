@@ -15,14 +15,13 @@ import MessageScreen from '../screens/MessageScreen';
 import { Image, View } from 'react-native';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import ExploreGrid from '../components/ExploreGrid';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabNavigator() {
     return (
-        <Tab.Navigator initialRouteName='NotificationScreen' screenOptions={{headerShown: false,  
+        <Tab.Navigator initialRouteName='ProfileScreen' screenOptions={{headerShown: false,  
             tabBarStyle: {
                 position: 'absolute', 
                 backgroundColor: colors.bgColor,
@@ -110,10 +109,7 @@ const AppNavigator = () => {
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
             <Stack.Screen name="StoryScreen" component={StoryScreen} />
-            {/* <Stack.Screen name="Stories" component={Stories} />
-            <Stack.Screen name="Feeds" component={Feeds} /> */}
             <Stack.Screen name="Home" component={MainTabNavigator} />
-            {/* <Stack.Screen name="grid" component={ExploreGrid} /> */}
         </Stack.Navigator>
     );
 }

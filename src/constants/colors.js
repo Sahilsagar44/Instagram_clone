@@ -26,6 +26,8 @@ const colors = {
     color: '#FFFFFF',
     placeholderColor: '#767676',
   },
+  ProfileBtns:'#2e2d2dff',
+  borderColor: '#4d4a4aff',
 }
 
 export default colors

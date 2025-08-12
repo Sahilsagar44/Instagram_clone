@@ -1,4 +1,4 @@
-import { Image, FlatList, StyleSheet, Text, TouchableOpacity, View, SectionList } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View, SectionList } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../constants/colors';
