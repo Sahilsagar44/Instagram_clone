@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import ProfileHeader from '../components/ProfileComponents/ProfileHeader'
-import ProfileTabs from '../navigation/ProfileTabs';
-import MiddleContent from './../components/ProfileComponents/MiddleContent';
-import colors from '../constants/colors';
+import ProfileHeader from '../../components/ProfileComponents/ProfileHeader'
+import ProfileTabs from '../../navigation/ProfileTabs';
+import MiddleContent from '../../components/ProfileComponents/MiddleContent';
+import colors from '../../constants/colors';
 
 
 const ProfileScreen = () => {
@@ -23,7 +23,5 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:colors.bgColor,
   },
-  // tabsContainer: {
-  //   height: 600,  // or some fixed height for the tabs content to show properly
-  // },
+
 })

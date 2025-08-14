@@ -3,12 +3,9 @@ import React, { useRef } from 'react';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SearchBox = ({ search, setSearch, showBack, onFocus, onBack }) => {
   const inputRef = useRef(null);
-
-  const handleClear = () => setSearch('');
 
   return (
     <View style={styles.searchRow}>
@@ -41,11 +38,6 @@ const SearchBox = ({ search, setSearch, showBack, onFocus, onBack }) => {
           autoCorrect={false}
           onFocus={onFocus}
         />
-        {search.length > 0 && (
-          <TouchableOpacity onPress={handleClear}>
-            <MaterialIcons name="close" size={20} color={colors.iconColor} />
-          </TouchableOpacity>
-        )}
       </View>
     </View>
   );

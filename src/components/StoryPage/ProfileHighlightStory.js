@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import user from './../../data/userData';
+import colors from './../../constants/colors';
 import  Feather  from 'react-native-vector-icons/Feather';
-import user from '../data/userData';
-import colors from '../constants/colors';
-const StoryScreen = ({ route }) => {
+
+const ProfileHighlightStory = ({ route }) => {
   const { startIndex = 0 } = route.params || {};
   const [currentIndex, setCurrentIndex] = useState(startIndex);
 
@@ -52,7 +53,25 @@ const StoryScreen = ({ route }) => {
       {/* Putter */}
       <View style={styles.putter}>
 
-        <TextInput/>
+        <TouchableOpacity style={{ alignItems: 'center', marginRight: 50 }}>
+          <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/friends.png')} style={styles.icons} />
+          <Text style={styles.iconsHeading}>Activity</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{ alignItems: 'center' }}>
+          <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/Browse.png')} style={styles.icons} />
+          <Text style={styles.iconsHeading}>Browse</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{ alignItems: 'center' }}>
+          <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/reel.png')} style={styles.icons} />
+          <Text style={styles.iconsHeading}>Create</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{ alignItems: 'center' }}>
+          <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/facebook.png')} style={styles.icons} />
+          <Text style={styles.iconsHeading}>Facebook</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={{ alignItems: 'center' }}>
           <Feather name='send' size={26} color={colors.postIconColor} />        
@@ -68,7 +87,7 @@ const StoryScreen = ({ route }) => {
   );
 };
 
-export default StoryScreen;
+export default ProfileHighlightStory;
 
 const styles = StyleSheet.create({
   container: {

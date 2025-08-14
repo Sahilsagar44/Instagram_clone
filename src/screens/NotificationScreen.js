@@ -58,7 +58,7 @@ const NotificationScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity activeOpacity={1} onPress={handleBack}>
-          <Ionicons name='arrow-back' size={30} color='white' />
+          <Ionicons name='arrow-back' size={30} color={colors.postIconColor} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Notifications</Text>
       </View>

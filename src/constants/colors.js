@@ -1,6 +1,3 @@
-import { SearchBar } from "react-native-screens"
-import { getCurrentTimestamp } from "react-native/types_generated/Libraries/Utilities/createPerformanceLogger"
-
 const colors = {
   bgColor: '#000000ff',
   fontColor: '#FFFFFF',
@@ -20,6 +17,7 @@ const colors = {
   musicBar:'#ddd',
   followBorder:'white',
   time:'grey',
+  changeProfileTxt:'#9d96ffff',
   TextInput: {
     backgroundColor: '#2e2d2dff',
     borderColor: '#6B6B6B',
@@ -28,6 +26,10 @@ const colors = {
   },
   ProfileBtns:'#2e2d2dff',
   borderColor: '#4d4a4aff',
+  LinearColor:{
+    start:'#ffc505ff',
+    end:'#ff2b05ff'
+  }
 }
 
 export default colors

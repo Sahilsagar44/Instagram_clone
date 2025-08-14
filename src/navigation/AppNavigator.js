@@ -10,12 +10,16 @@ import SearchScreen from '../screens/SearchScreen';
 import ReelsScreen from '../screens/ReelsScreen';
 import StoryScreen from '../screens/StoryScreen';
 import NotificationScreen from './../screens/NotificationScreen';
-import ProfileScreen from './../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfilePages/ProfileScreen';
 import MessageScreen from '../screens/MessageScreen';
 import { Image, View } from 'react-native';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MentionDetails from '../components/ProfileComponents/ProfileMentions/MentionDetails';
+import ProfileHighlightStory from '../components/StoryPage/ProfileHighlightStory';
+import user from './../data/userData';
+import EditProfileScreen from '../screens/ProfilePages/EditProfileScreen';
+import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -90,7 +94,7 @@ function MainTabNavigator() {
                         borderColor: focused ? colors.fontColor : colors.fontColor,
                         }}>
                         <Image
-                        source={require('D:/sahil/react_native/Instagram_clone/src/assets/images/profile.png')}
+                        source={{uri:user.profileImage}}
                         style={{    
                             width: 25,
                             height: 25,
@@ -105,13 +109,17 @@ function MainTabNavigator() {
 }
 const AppNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, orientation:'portrait'}}>
+        <Stack.Navigator initialRouteName='Home'screenOptions={{ headerShown: false, orientation:'portrait'}}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
             <Stack.Screen name="StoryScreen" component={StoryScreen} />
             <Stack.Screen name="Home" component={MainTabNavigator} />
             <Stack.Screen name="MentionDetails" component={MentionDetails} />
+            <Stack.Screen name="ProfileHighlightStory" component={ProfileHighlightStory} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+            <Stack.Screen name="shareProfilePage" component={shareProfilePage} />
+            
         </Stack.Navigator>
     );
 }

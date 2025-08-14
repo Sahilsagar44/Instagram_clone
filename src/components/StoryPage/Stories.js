@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 const Stories = ({ story }) => {
   if (!story) return null;

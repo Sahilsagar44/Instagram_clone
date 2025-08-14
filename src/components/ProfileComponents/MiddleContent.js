@@ -2,7 +2,10 @@ import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'rea
 import React from 'react'
 import user from '../../data/userData'
 import colors from '../../constants/colors'
+import { useNavigation } from '@react-navigation/native'
 const MiddleContent = () => {
+    const navigation = useNavigation()
+
     return (
         <View style={styles.container}>
             <View style={styles.profileRow}>
@@ -41,7 +44,7 @@ const MiddleContent = () => {
             <Text style={styles.userName}><Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/threads.png')} style={{ width: 13, height: 13 }} /> {user.username}</Text>
 
             <View style={styles.buttons}>
-                <TouchableOpacity style={styles.Profile} activeOpacity={0.4}>
+                <TouchableOpacity style={styles.Profile} activeOpacity={0.4} onPress={()=>navigation.navigate('EditProfileScreen')}>
                     <Text style={styles.editProfileTxt}>Edit Profile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Profile} activeOpacity={0.4}>
@@ -60,11 +63,11 @@ const MiddleContent = () => {
                     <Text style={styles.highlightTitle}>New</Text>
                 </TouchableOpacity>
 
-                {user.highlights.map((item)=>(
-                    <View style={styles.highlightItem} key={item.id}>
+                {user.highlights.map((item,index)=>(
+                    <TouchableOpacity style={styles.highlightItem} key={item.id} onPress={()=> navigation.navigate('ProfileHighlightStory',{startIndex:index})}>
                         <Image source={{uri: item.image}} style={styles.highlightImage}/>
                         <Text style={styles.highlightTitle}>{item.title}</Text>
-                    </View>
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
         </View>

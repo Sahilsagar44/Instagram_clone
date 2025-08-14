@@ -3,6 +3,7 @@ const user = {
   fullName: 'Sahil Dev',
   profileImage: 'https://randomuser.me/api/portraits/men/15.jpg',
   isVerified: true,
+  gender:'male',
   accountType: 'Public figure',
   bio: 'React Native Developer 💻 | Dreaming in code.',
   contactEmail: 'sahil@devmail.com',
@@ -230,27 +231,36 @@ const user = {
     timestamp: '2025-08-12T12:00:00Z'
   },
   highlights: [
-    {
-      id: 'hl_1',
-      title: 'Austria ‘25',
-      image: 'https://picsum.photos/id/201/800/800',
-    },
-    {
-      id: 'hl_2',
-      title: 'Czechia ‘25',
-      image: 'https://picsum.photos/id/202/800/800',
-    },
-    {
-      id: 'hl_3',
-      title: 'Croatia ‘25',
-      image: 'https://picsum.photos/id/203/800/800',
-    },
-    {
-      id: 'hl_4',
-      title: 'London ‘24',
-      image: 'https://picsum.photos/id/204/800/800',
-    }
-  ],
+  {
+    id: 'hl_1',
+    title: 'Austria ‘25',
+    image: 'https://picsum.photos/id/201/800/800',
+    time: '15m', // how long the highlight is
+    musicName: 'Alpine Sunrise - Hans Zimmer'
+  },
+  {
+    id: 'hl_2',
+    title: 'Czechia ‘25',
+    image: 'https://picsum.photos/id/202/800/800',
+    time: '12m',
+    musicName: 'Prague Nights - Ludovico Einaudi'
+  },
+  {
+    id: 'hl_3',
+    title: 'Croatia ‘25',
+    image: 'https://picsum.photos/id/203/800/800',
+    time: '10m',
+    musicName: 'Adriatic Waves - Enya'
+  },
+  {
+    id: 'hl_4',
+    title: 'London ‘24',
+    image: 'https://picsum.photos/id/204/800/800',
+    time: '14m',
+    musicName: 'London Calling - The Clash'
+  }
+],
+
   mentions: [
     {
       id: 'mention_1',
