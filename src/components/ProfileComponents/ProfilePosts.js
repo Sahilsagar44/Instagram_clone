@@ -22,6 +22,7 @@ const ProfilePosts = () => {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         numColumns={3}
+        scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.gridSpacing}
       />

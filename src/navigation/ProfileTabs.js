@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ProfilePosts from '../components/ProfileComponents/ProfilePosts';
 import ProfileReels from '../components/ProfileComponents/ProfileReels';
-import ProfileMentions from '../components/ProfileComponents/ProfileMentions';
+import ProfileMentions from '../components/ProfileComponents/ProfileMentions/ProfileMentions';
 import { Image } from 'react-native';
 import colors from '../constants/colors';
 

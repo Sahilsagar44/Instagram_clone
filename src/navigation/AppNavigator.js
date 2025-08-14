@@ -15,6 +15,7 @@ import MessageScreen from '../screens/MessageScreen';
 import { Image, View } from 'react-native';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import MentionDetails from '../components/ProfileComponents/ProfileMentions/MentionDetails';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,6 +111,7 @@ const AppNavigator = () => {
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
             <Stack.Screen name="StoryScreen" component={StoryScreen} />
             <Stack.Screen name="Home" component={MainTabNavigator} />
+            <Stack.Screen name="MentionDetails" component={MentionDetails} />
         </Stack.Navigator>
     );
 }

@@ -33,6 +33,7 @@ const ProfileReels = () => {
         renderItem={renderItem}
         numColumns={3}
         showsVerticalScrollIndicator={false}
+        scrollEnabled={true}
         contentContainerStyle={styles.gridSpacing}
       />
     </View>

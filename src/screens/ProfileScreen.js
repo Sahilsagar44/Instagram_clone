@@ -5,15 +5,14 @@ import ProfileTabs from '../navigation/ProfileTabs';
 import MiddleContent from './../components/ProfileComponents/MiddleContent';
 import colors from '../constants/colors';
 
+
 const ProfileScreen = () => {
   return (
-    <ScrollView style={styles.container} stickyHeaderIndices={[2]}>
+    <View style={styles.container}>
       <ProfileHeader />
       <MiddleContent/>
-      <View style={styles.tabsContainer}>
-        <ProfileTabs />
-      </View>
-    </ScrollView>
+      <ProfileTabs />
+    </View>
   )
 }
 
@@ -22,8 +21,9 @@ export default ProfileScreen
 const styles = StyleSheet.create({
   container:{
     flex:1,
+    backgroundColor:colors.bgColor,
   },
-  tabsContainer: {
-    height: 600,  // or some fixed height for the tabs content to show properly
-  },
+  // tabsContainer: {
+  //   height: 600,  // or some fixed height for the tabs content to show properly
+  // },
 })
