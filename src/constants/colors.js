@@ -19,6 +19,7 @@ const colors = {
   time:'grey',
   mainStorycolor:'#888',
   msgColor:'#222',
+  borderTopColor: '#333',
   changeProfileTxt:'#9d96ffff',
   TextInput: {
     backgroundColor: '#2e2d2dff',
@@ -28,6 +29,8 @@ const colors = {
   },
   ProfileBtns:'#2e2d2dff',
   borderColor: '#4d4a4aff',
+  theirMsgBackground:'#4d4a4aff',
+  myMsgBackground:'#2078a3ff',
   LinearColor:{
     start:'#ffc505ff',
     end:'#ff2b05ff'

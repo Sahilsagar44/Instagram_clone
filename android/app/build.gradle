@@ -119,7 +119,7 @@ dependencies {
 }
 
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf','FontAwesome5.ttf','MaterialCommunityIcons.ttf','FontAwesome.ttf','fontisto.ttf','Feather.ttf','Octicons.ttf','Ionicons.ttf','FontAwesome6Brands.ttf'] // Specify font files
+    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf','FontAwesome5.ttf','MaterialCommunityIcons.ttf','FontAwesome.ttf','fontisto.ttf','Feather.ttf','Octicons.ttf','Ionicons.ttf','FontAwesome6Brands.ttf','MaterialDesignIcons.ttf'] // Specify font files
 ]
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 

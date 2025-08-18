@@ -20,6 +20,7 @@ import ProfileHighlightStory from '../components/StoryPage/ProfileHighlightStory
 import user from './../data/userData';
 import EditProfileScreen from '../screens/ProfilePages/EditProfileScreen';
 import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
+import msgScreen from '../components/msgScreen/msgScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,7 +32,7 @@ function MainTabNavigator() {
                 position: 'absolute', 
                 backgroundColor: colors.bgColor,
                 borderTopWidth: 1,
-                borderTopColor: '#333',
+                borderTopColor: colors.borderTopColor,
                 height: 60,
                 justifyContent: 'center',
                 display:'flex',
@@ -119,6 +120,7 @@ const AppNavigator = () => {
             <Stack.Screen name="ProfileHighlightStory" component={ProfileHighlightStory} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Stack.Screen name="shareProfilePage" component={shareProfilePage} />
+            <Stack.Screen name="msgScreen" component={msgScreen} />
             
         </Stack.Navigator>
     );
