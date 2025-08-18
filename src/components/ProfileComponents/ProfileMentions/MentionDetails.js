@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { use, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -13,11 +13,14 @@ import colors from './../../../constants/colors';
 import user from './../../../data/userData';
 import  Feather  from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useRoute } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 const MentionDetails = () => {
     const [likesCount,setLikesCount] = useState()
+    const route = useRoute()
+    const { mentions = [], startIndex = 0 } = route.params || {};
     
     const [playingVideoId, setPlayingVideoId] = useState(null); 
   
@@ -113,7 +116,13 @@ const MentionDetails = () => {
       contentContainerStyle={{ paddingBottom: 50 }}
       backgroundColor={colors.bgColor}
       onViewableItemsChanged={onViewableItemsChanged}
+      initialScrollIndex={startIndex}   
       viewabilityConfig={viewabilityConfig}
+      getItemLayout={(data, index) => ({
+        length: width,
+        offset: width * index,
+        index,
+      })}
     />
   );
 };

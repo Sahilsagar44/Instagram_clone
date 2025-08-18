@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
 
 function MainTabNavigator() {
     return (
-        <Tab.Navigator initialRouteName='ProfileScreen' screenOptions={{headerShown: false,  
+        <Tab.Navigator initialRouteName='HomeScreen' screenOptions={{headerShown: false,  
             tabBarStyle: {
                 position: 'absolute', 
                 backgroundColor: colors.bgColor,

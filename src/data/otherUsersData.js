@@ -1,6 +1,3 @@
-// Dummy usersData for Instagram clone
-// Includes additional fields for StoryScreen compatibility
-
 export const OtherUsersData = [
   {
     id: 'u1',
@@ -17,12 +14,14 @@ export const OtherUsersData = [
     stories: [
       { 
         id: 's1', 
-        image: 'https://picsum.photos/seed/s1/400/700', 
+        image: 'https://picsum.photos/seed/200/400/700', 
         createdAt: '2025-08-01T05:00:00.000Z', 
         isExpired: false,
-        title: 'travel_enthusiast', // for StoryScreen
-        time: '5h ago',            // could be formatted dynamically, but here as dummy text
-        musicName: 'Lost in the Wild - ArtistName'
+        title: 'travel_enthusiast',
+        time: '5h ago',
+        musicName: 'Lost in the Wild - ArtistName',
+        hasComment: true,
+        hasMessage: true,
       },
     ],
     posts: [
@@ -45,12 +44,14 @@ export const OtherUsersData = [
     stories: [
       {
         id: 's3', 
-        image: 'https://picsum.photos/seed/s3/400/700', 
+        image: 'https://picsum.photos/seed/201/400/700', 
         createdAt: '2025-08-13T15:20:00.000Z', 
         isExpired: false,
         title: 'foodie_delights',
         time: '2h ago',
-        musicName: 'Sweet Symphony - ArtistX'
+        musicName: 'Sweet Symphony - ArtistX',
+        hasComment: false,
+        hasMessage: true,
       }
     ],
     posts: [
@@ -72,19 +73,21 @@ export const OtherUsersData = [
     stories: [
       { 
         id: 's2', 
-        image: 'https://picsum.photos/seed/s2/400/700', 
+        image: 'https://picsum.photos/seed/2002/400/700', 
         createdAt: '2025-08-07T10:00:00.000Z', 
         isExpired: false,
         title: 'city.sketcher',
         time: '1d ago',
-        musicName: 'Rainy Day Blues - Alan Keys'
+        musicName: 'Rainy Day Blues - Alan Keys',
+        hasComment: true,
+        hasMessage: false,
       },
     ],
     posts: [
       { id: 'p4', image: 'https://picsum.photos/seed/p4/800/800', caption: 'Monsoon sketches', likes: 310, comments: 8, createdAt: '2025-07-01T11:00:00.000Z' },
     ],
   },
-  // 📝 Keep other users same but you can also add stories with these keys if needed
+  // 📝 Add more users as needed—just extend any story with hasComment and hasMessage!
 ];
 
 export default OtherUsersData;

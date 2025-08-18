@@ -1,8 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import colors from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
-const Stories = ({ story }) => {
+const Stories = ({ story, allStories, tapIndex }) => {
+  const navigation = useNavigation();
+
   if (!story) return null;
 
   const isMe = story.isMe;
@@ -14,14 +17,26 @@ const Stories = ({ story }) => {
     />
   );
 
+  const onStoryPress = () => {
+    // Prevent navigation if this is your story but no story exists
+    if (isMe && !story.hasStory) {
+      // Optionally show message or just return
+      return;
+    }
+
+    navigation.navigate('StoryScreen', {
+      stories: allStories,
+      startIndex: tapIndex,
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onStoryPress} activeOpacity={0.7}>
         <View style={story.hasStory ? styles.storyRing : styles.noStoryRing}>
           {StoryImage}
-        
 
-         {isMe && !story.hasStory && (
+          {isMe && !story.hasStory && (
             <View style={styles.addIconContainer}>
               <Image
                 source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/plus.png')}
@@ -45,6 +60,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginHorizontal: 8,
+    width: 80,
   },
   storyRing: {
     borderWidth: 2,
@@ -68,20 +84,20 @@ const styles = StyleSheet.create({
     maxWidth: 80,
     textAlign: 'center',
     color: colors.fontColor,
+    marginTop: 4,
   },
   addIconContainer: {
     position: 'absolute',
-        top: 0,
-        right: 0,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 60,
-        padding: 1,
-        borderWidth: 2,
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 60,
+    padding: 1,
+    borderWidth: 2,
+    borderColor: colors.backgroundColor,
   },
   addIcon: {
     height: 16,
     width: 16,
-    backgroundColor:'red'
   },
-
 });

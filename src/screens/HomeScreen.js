@@ -6,14 +6,15 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import Feeds from '../components/Feeds';
 import Header from '../components/Header';
 import user from '../data/userData';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import userStories from '../data/storiesData';
 import usersPosts from '../data/postsData';
+import { OtherUsersData } from './../data/otherUsersData';
 import Stories from '../components/StoryPage/Stories';
+import colors from '../constants/colors';
 
 const HomeScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -25,20 +26,36 @@ const HomeScreen = () => {
     extrapolate: 'clamp',
   });
 
-  // Your profile (always shown)
+  // Your own profile story (always shown)
   const myStory = {
     id: user.id,
     userName: 'Your Story',
     profileImage: user.profileImage,
-    hasStory: user.hasStory, // change to true if you want the ring to appear
+    hasStory: user.hasStory,
+    isMe: true,
   };
 
-  // Final stories array: your story + others (only if hasStory)
-  const stories = [myStory, ...userStories.filter((story) => story.hasStory)];
+  // Flatten all stories from other users and filter out expired ones
+  const otherStories = useMemo(() => {
+    return OtherUsersData.flatMap(user =>
+      user.stories
+        .filter(story => !story.isExpired)
+        .map(story => ({
+          ...story,
+          userName: user.username,
+          profileImage: user.profileImage,
+          isMe: false,
+          hasStory: true,
+        }))
+    );
+  }, []);
+
+  
+  const allStories = [myStory, ...otherStories];
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} />
 
       <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslateY }] }]}>
         <Header />
@@ -61,11 +78,17 @@ const HomeScreen = () => {
         ListHeaderComponent={
           <View style={styles.storiesWrapper}>
             <FlatList
-              data={stories}
+              data={allStories}
               keyExtractor={(item) => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => <Stories story={item} />}
+              renderItem={({ item, index }) => (
+                <Stories
+                  story={item}
+                  allStories={allStories}
+                  tapIndex={index}
+                />
+              )}
               contentContainerStyle={{ paddingHorizontal: 10 }}
             />
           </View>

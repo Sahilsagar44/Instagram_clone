@@ -1,9 +1,10 @@
 import {  Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import colors from '../constants/colors'
+import { useNavigation } from '@react-navigation/native'
 
 const Header = () => {
-    
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/images/insta.png')}
@@ -13,7 +14,7 @@ const Header = () => {
                     <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/add.png')}
                         style={styles.addImage} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconWrapper}>
+                <TouchableOpacity style={styles.iconWrapper} onPress={()=>navigation.navigate('MessageScreen')}>
                     <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/messenger.png')}
                         style={styles.addImage} />
                 </TouchableOpacity>

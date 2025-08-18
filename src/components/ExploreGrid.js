@@ -64,13 +64,11 @@ const styles = StyleSheet.create({
     smallSquare: {
         flex: 1,
         aspectRatio: 1,
-        backgroundColor: 'powderblue',
         margin: 1,
     },
     tallRectangle: {
         flex: 1,
         aspectRatio: 0,
-        backgroundColor: 'skyblue',
         margin: 1,
     },
     containerReverse: {

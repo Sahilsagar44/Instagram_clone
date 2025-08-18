@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 13,
-    color: '#888',
+    color: colors.mainStorycolor,
   },
   noResults: {
     padding: 20,
@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
   },
   noResultsText: {
     fontSize: 15,
-    color: '#888',
+    color: colors.mainStorycolor,
   },
 });

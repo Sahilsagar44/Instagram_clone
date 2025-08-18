@@ -17,6 +17,8 @@ const colors = {
   musicBar:'#ddd',
   followBorder:'white',
   time:'grey',
+  mainStorycolor:'#888',
+  msgColor:'#222',
   changeProfileTxt:'#9d96ffff',
   TextInput: {
     backgroundColor: '#2e2d2dff',

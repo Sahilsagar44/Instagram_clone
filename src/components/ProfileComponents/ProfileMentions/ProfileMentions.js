@@ -6,17 +6,18 @@ import { useNavigation } from '@react-navigation/native';
 
 const ProfileMentions = () => {
   const navigation = useNavigation()
-  const handlePress = (item) => {
-    navigation.navigate('MentionDetails', { mention: item })
+  const handlePress = (item,index) => {
+    navigation.navigate('MentionDetails', {  mentions: user.mentions, startIndex: index })
   }
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item,index }) => {
 
   return (
     <TouchableOpacity
       style={styles.postContainer}
       activeOpacity={0.8}
-      onPress={() => handlePress(item)}
+          onPress={() => handlePress(item, index)}   
+
     >
       <Image
         source={{ uri: item.type === 'reel' ? item.thumbnail : item.uri }}

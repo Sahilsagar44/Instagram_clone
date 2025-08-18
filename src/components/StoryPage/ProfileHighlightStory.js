@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   touchContainer: {
     position: 'absolute',
     width: '100%',
-    height: '100%',
+    height: '90%',
     flexDirection: 'row',
     zIndex: 10,
   },
