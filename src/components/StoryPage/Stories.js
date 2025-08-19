@@ -18,9 +18,7 @@ const Stories = ({ story, allStories, tapIndex }) => {
   );
 
   const onStoryPress = () => {
-    // Prevent navigation if this is your story but no story exists
     if (isMe && !story.hasStory) {
-      // Optionally show message or just return
       return;
     }
 

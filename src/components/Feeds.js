@@ -1,12 +1,14 @@
-import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useRef, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../constants/colors';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import CommentsPage from './CommentsPage';
 
-
+const { height:screenHeight }=Dimensions.get('window')
 
 
 const Feeds = ({ post }) => {
@@ -24,6 +26,7 @@ const Feeds = ({ post }) => {
   const scaleAnimation = useRef(new Animated.Value(0)).current
   const opacityAnimation = useRef(new Animated.Value(0)).current
 
+  const refRBSheet = useRef()
 
   const triggerHeartAnimation = () => {
     scaleAnimation.setValue(0.5)
@@ -113,7 +116,7 @@ const Feeds = ({ post }) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setCommentsCount((prev) => prev + 1)}>
+        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <FontAwesome name="comment-o" size={25} color={colors.postIconColor} />
             <Text style={styles.font}>{commentsCount}</Text>
@@ -142,6 +145,24 @@ const Feeds = ({ post }) => {
         <Text style={{ color: colors.fontColor, fontWeight: 'bold' }}>{post.user.name}</Text>
         <Text style={{ color: colors.subFontColor }}>{post.description}</Text>
       </View>
+      <RBSheet
+        ref={refRBSheet}
+        height={screenHeight}
+        draggable={true}
+        dragOnContent={true}
+        closeDuration={400}
+        openDuration={400}
+        customStyles={{
+          draggableIcon:{
+            backgroundColor:colors.fontColor,
+            width:50
+          },
+          container:{
+            backgroundColor:colors.commentsbgColor
+          }
+        }}>
+        <CommentsPage/>
+      </RBSheet>
     </View>
   );
 };

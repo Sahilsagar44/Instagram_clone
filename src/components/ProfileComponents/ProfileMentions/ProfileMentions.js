@@ -6,51 +6,51 @@ import { useNavigation } from '@react-navigation/native';
 
 const ProfileMentions = () => {
   const navigation = useNavigation()
-  const handlePress = (item,index) => {
-    navigation.navigate('MentionDetails', {  mentions: user.mentions, startIndex: index })
+  const handlePress = (index) => {
+    navigation.navigate('MentionDetails', { mentions: user.mentions, startIndex: index })
   }
 
-  const renderItem = ({ item,index }) => {
+  const renderItem = ({ item, index }) => {
 
-  return (
-    <TouchableOpacity
-      style={styles.postContainer}
-      activeOpacity={0.8}
-          onPress={() => handlePress(item, index)}   
+    return (
+      <TouchableOpacity
+        style={styles.postContainer}
+        activeOpacity={0.8}
+        onPress={() => handlePress(item, index)}
 
-    >
-      <Image
-        source={{ uri: item.type === 'reel' ? item.thumbnail : item.uri }}
-        style={styles.postImage}
-      />
+      >
+        <Image
+          source={{ uri: item.type === 'reel' ? item.thumbnail : item.uri }}
+          style={styles.postImage}
+        />
 
-      {item.type === 'post' && item.isMultipleImages && (
-        <View style={styles.reelsLogoContainer}>
-          <Image
-            source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/multiplePost.png')}
-            style={styles.multipleImages}
-          />
-        </View>
-      )}
+        {item.type === 'post' && item.isMultipleImages && (
+          <View style={styles.reelsLogoContainer}>
+            <Image
+              source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/multiplePost.png')}
+              style={styles.multipleImages}
+            />
+          </View>
+        )}
 
-      {item.type === 'reel' && (
-        <View style={styles.reelsLogoContainer}>
-          <Image
-            source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/reel(1).png')}
-            style={styles.reelsLogo}
-          />
-        </View>
-      )}
-    </TouchableOpacity>
-  );
-};
+        {item.type === 'reel' && (
+          <View style={styles.reelsLogoContainer}>
+            <Image
+              source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/reel(1).png')}
+              style={styles.reelsLogo}
+            />
+          </View>
+        )}
+      </TouchableOpacity>
+    );
+  };
 
 
   return (
     <View style={styles.fullContainer}>
       <FlatList
         data={user.mentions}
-        keyExtractor={(item,index) => item.id + index}
+        keyExtractor={(item, index) => item.id + index}
         renderItem={renderItem}
         numColumns={3}
         scrollEnabled={true}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import colors from '../constants/colors';
 
@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 10,
         width: '90%',
-        // height: 55
-
     },
     label: {
         fontSize: 15,
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 16,
         color: colors.fontColor,
-        paddingVertical:10
+        paddingVertical: 10
     },
 });
 

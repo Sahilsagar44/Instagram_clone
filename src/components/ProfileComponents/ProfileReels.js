@@ -8,7 +8,7 @@ const ProfileReels = () => {
     return (
       <View style={styles.postContainer}>
         <Image
-          source={{ uri: item.thumbnail}}
+          source={{ uri: item.thumbnail }}
           style={styles.postImage}
         />
         <View style={styles.viewsContainer}>
@@ -17,7 +17,7 @@ const ProfileReels = () => {
             {item.viewsCount || 0}
           </Text>
         </View>
-        <View style={styles.reelsLogoContainer}>      
+        <View style={styles.reelsLogoContainer}>
           <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/reel(1).png')} style={styles.reelsLogo} />
         </View>
 

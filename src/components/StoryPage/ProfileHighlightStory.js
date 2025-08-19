@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import user from './../../data/userData';
 import colors from './../../constants/colors';
-import  Feather  from 'react-native-vector-icons/Feather';
+import Feather from 'react-native-vector-icons/Feather';
 
 const ProfileHighlightStory = ({ route }) => {
   const { startIndex = 0 } = route.params || {};
@@ -32,7 +32,7 @@ const ProfileHighlightStory = ({ route }) => {
       </View>
 
       <Image source={{ uri: story.image }} style={styles.storyImage} />
-      
+
       <View style={styles.overlay}>
         {/* Header */}
         <View style={styles.header}>
@@ -74,7 +74,7 @@ const ProfileHighlightStory = ({ route }) => {
         </TouchableOpacity>
 
         <TouchableOpacity style={{ alignItems: 'center' }}>
-          <Feather name='send' size={26} color={colors.postIconColor} />        
+          <Feather name='send' size={26} color={colors.postIconColor} />
           <Text style={styles.iconsHeading}>Send</Text>
         </TouchableOpacity>
 

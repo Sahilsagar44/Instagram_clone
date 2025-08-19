@@ -10,6 +10,7 @@ const colors = {
   shareColor: '#34AADC',
   storyTextColor: '#FFFFFF',
   iconColor: '#a7a4a4ff',
+  commentsbgColor:'#252525ff',
   postIconColor: '#FFFFFF',
   TouchableButtonColor: '#0082FB',
   timeStampColor:'#A8A8A8',

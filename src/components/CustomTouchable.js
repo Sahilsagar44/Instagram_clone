@@ -1,8 +1,7 @@
 import { StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import colors from '../constants/colors'
 
-const CustomTouchable = ({ text,onPress, style }) => {
+const CustomTouchable = ({ text, onPress, style }) => {
   return (
     <View>
       <TouchableOpacity onPress={onPress}>
@@ -15,9 +14,7 @@ const CustomTouchable = ({ text,onPress, style }) => {
 export default CustomTouchable
 
 const styles = StyleSheet.create({
-    text: {
-        // color: colors.TouchableButtonColor,
-        fontSize: 16,
-        
-    },
+  text: {
+    fontSize: 16,
+  },
 })

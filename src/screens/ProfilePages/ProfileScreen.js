@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import ProfileHeader from '../../components/ProfileComponents/ProfileHeader'
 import ProfileTabs from '../../navigation/ProfileTabs';
@@ -23,5 +23,4 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:colors.bgColor,
   },
-
 })

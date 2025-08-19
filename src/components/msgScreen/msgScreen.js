@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import colors from './../../constants/colors';
 import messageData from './../../data/messageData';
-import  Octicons  from 'react-native-vector-icons/Octicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 const MsgScreen = () => {
     const navigation = useNavigation();
@@ -17,8 +17,7 @@ const MsgScreen = () => {
             style={[
                 styles.messageBubble,
                 item.sentByMe ? styles.myMessage : styles.theirMessage
-            ]}
-        >
+            ]}>
             <Text style={styles.messageText}>{item.text}</Text>
             <Text style={styles.timeText}>{item.timestamp}</Text>
         </View>
@@ -57,44 +56,62 @@ const MsgScreen = () => {
                 renderItem={renderMessage}
                 contentContainerStyle={styles.chatContainer}
                 showsVerticalScrollIndicator={false}
-                inverted 
-            />
+                inverted />
 
-                <View style={styles.inputContainer}>
-                    <TouchableOpacity style={{backgroundColor:colors.changeProfileTxt,borderRadius:50,width:40,height:40,justifyContent:'center'}}>
-                        <Ionicons name="camera" size={30} color={colors.postIconColor} style={styles.icon} />
-                    </TouchableOpacity>
+            <View style={styles.inputContainer}>
+                <TouchableOpacity style={{ backgroundColor: colors.changeProfileTxt, borderRadius: 50, width: 40, height: 40, justifyContent: 'center' }}>
+                    <Ionicons name="camera" size={30} color={colors.postIconColor} style={styles.icon} />
+                </TouchableOpacity>
 
-                    <TextInput
-                        placeholder="Message..."
-                        placeholderTextColor="#999"
-                        style={styles.input}
-                    />
+                <TextInput
+                    placeholder="Message..."
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                />
 
-                    <TouchableOpacity>
-                        <Ionicons name="mic-outline" size={24} color={colors.postIconColor} style={styles.icon} />
-                    </TouchableOpacity>
+                <TouchableOpacity>
+                    <Ionicons
+                        name="mic-outline"
+                        size={24}
+                        color={colors.postIconColor}
+                        style={styles.icon} />
+                </TouchableOpacity>
 
-                    <TouchableOpacity>
-                        <Ionicons name="image-outline" size={24} color={colors.postIconColor} style={styles.icon} />
-                    </TouchableOpacity> 
+                <TouchableOpacity>
+                    <Ionicons
+                        name="image-outline"
+                        size={24}
+                        color={colors.postIconColor}
+                        style={styles.icon} />
+                </TouchableOpacity>
 
-                    <TouchableOpacity>
-                        <Ionicons name="happy-outline" size={24} color={colors.postIconColor} style={styles.icon} />
-                    </TouchableOpacity>
+                <TouchableOpacity>
+                    <Ionicons
+                        name="happy-outline"
+                        size={24}
+                        color={colors.postIconColor}
+                        style={styles.icon} />
+                </TouchableOpacity>
 
-                    <TouchableOpacity>
-                        <Octicons name="plus-circle" size={24} color={colors.postIconColor} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity>
+                    <Octicons
+                        name="plus-circle"
+                        size={24}
+                        color={colors.postIconColor}
+                        style={styles.icon} />
+                </TouchableOpacity>
             </View>
+        </View>
     )
 }
 
 export default MsgScreen;
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.bgColor },
+    container: {
+        flex: 1,
+        backgroundColor: colors.bgColor
+    },
     header: {
         paddingHorizontal: 12,
         height: 56,
@@ -170,10 +187,10 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 35,
         paddingHorizontal: 20,
-        marginHorizontal:20
+        marginHorizontal: 20
     },
     input: {
-        flex: 1,        
+        flex: 1,
         paddingHorizontal: 15,
         color: colors.fontColor,
         fontSize: 14,

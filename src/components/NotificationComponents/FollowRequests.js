@@ -14,14 +14,14 @@ const FollowRequests = () => {
   const firstImage = followRequests[0]?.profileImage;
   const secondImage = followRequests[1]?.profileImage;
 
-const isSingleRequest = followRequests.length === 1;
+  const isSingleRequest = followRequests.length === 1;
 
 
   return (
     <View style={styles.followRequests}>
       <View style={styles.followImagesContainer}>
         {firstImage && (
-          <Image source={{ uri: firstImage }} style={isSingleRequest ?styles.singleFollowImage :styles.followImage1} />
+          <Image source={{ uri: firstImage }} style={isSingleRequest ? styles.singleFollowImage : styles.followImage1} />
         )}
         {followRequests.length > 1 && secondImage && (
           <Image

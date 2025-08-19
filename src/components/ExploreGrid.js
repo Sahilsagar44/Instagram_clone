@@ -1,7 +1,5 @@
 import React from 'react';
-import {  FlatList, Image, StyleSheet, View } from 'react-native';
-
-
+import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 const ExploreGrid = (count) => {
     const exploreImages = Array.from({ length: 300 }, (_, i) => ({
@@ -32,14 +30,14 @@ const ExploreGrid = (count) => {
         );
     };
     const numBlocks = Math.ceil(exploreImages.length / 5);
-    return(
+    return (
         <View style={styles.fullContainer}>
-        <FlatList
-            data={Array.from({length:numBlocks})}
-            keyExtractor={(_, i) => `block-${i}`}
-            renderItem={randerItem}
-            showsVerticalScrollIndicator={false}
-        />
+            <FlatList
+                data={Array.from({ length: numBlocks })}
+                keyExtractor={(_, i) => `block-${i}`}
+                renderItem={randerItem}
+                showsVerticalScrollIndicator={false}
+            />
         </View>
     )
 
@@ -48,8 +46,8 @@ const ExploreGrid = (count) => {
 export default ExploreGrid;
 
 const styles = StyleSheet.create({
-    fullContainer:{
-        marginTop:5
+    fullContainer: {
+        marginTop: 5
     },
     container: {
         flexDirection: 'row',

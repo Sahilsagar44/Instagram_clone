@@ -3,6 +3,7 @@ import React from 'react'
 import user from '../../data/userData'
 import colors from '../../constants/colors'
 import { useNavigation } from '@react-navigation/native'
+
 const MiddleContent = () => {
     const navigation = useNavigation()
 
@@ -44,7 +45,7 @@ const MiddleContent = () => {
             <Text style={styles.userName}><Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/threads.png')} style={{ width: 13, height: 13 }} /> {user.username}</Text>
 
             <View style={styles.buttons}>
-                <TouchableOpacity style={styles.Profile} activeOpacity={0.4} onPress={()=>navigation.navigate('EditProfileScreen')}>
+                <TouchableOpacity style={styles.Profile} activeOpacity={0.4} onPress={() => navigation.navigate('EditProfileScreen')}>
                     <Text style={styles.editProfileTxt}>Edit Profile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Profile} activeOpacity={0.4}>
@@ -63,9 +64,11 @@ const MiddleContent = () => {
                     <Text style={styles.highlightTitle}>New</Text>
                 </TouchableOpacity>
 
-                {user.highlights.map((item,index)=>(
-                    <TouchableOpacity style={styles.highlightItem} key={item.id} onPress={()=> navigation.navigate('ProfileHighlightStory',{startIndex:index})}>
-                        <Image source={{uri: item.image}} style={styles.highlightImage}/>
+                {user.highlights.map((item, index) => (
+                    <TouchableOpacity style={styles.highlightItem}
+                        key={item.id}
+                        onPress={() => navigation.navigate('ProfileHighlightStory', { startIndex: index })}>
+                        <Image source={{ uri: item.image }} style={styles.highlightImage} />
                         <Text style={styles.highlightTitle}>{item.title}</Text>
                     </TouchableOpacity>
                 ))}
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.bgColor,
         paddingHorizontal: 10,
-        paddingVertical:20
+        paddingVertical: 20
     },
     rightContent: {
         flex: 1,
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     },
     editProfileTxt: {
         color: colors.fontColor,
-        fontWeight:'600'
+        fontWeight: '600'
     },
     inviteBtn: {
         padding: 10,
@@ -179,18 +182,18 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20
     },
-    highlightsScroll:{
-        marginTop:15,
+    highlightsScroll: {
+        marginTop: 15,
     },
-    highlightItem:{
-        alignItems:'center',
-        marginRight:20
+    highlightItem: {
+        alignItems: 'center',
+        marginRight: 20
     },
-    highlightImage:{
-        width:70,
-        height:70,
-        borderRadius:50,
-        borderWidth:2,        
+    highlightImage: {
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        borderWidth: 2,
         borderColor: colors.borderColor
     },
     highlightTitle: {
@@ -198,16 +201,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: colors.fontColor
     },
-    addHighlightCircle:{
-        width:70,
-        height:70,
-        borderRadius:50,
-        borderWidth:2,
-        borderColor:colors.borderColor,
-        justifyContent:'center',
-        alignItems:'center',
+    addHighlightCircle: {
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: colors.borderColor,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    addHighlightPlus:{
+    addHighlightPlus: {
         fontSize: 28,
         color: colors.fontColor,
         fontWeight: '400'

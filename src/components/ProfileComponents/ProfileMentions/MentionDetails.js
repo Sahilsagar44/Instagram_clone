@@ -1,4 +1,4 @@
-import React, { use, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import { useRoute } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
 
 const MentionDetails = () => {
-    const [likesCount,setLikesCount] = useState()
+    // const [likesCount,setLikesCount] = useState()
     const route = useRoute()
     const { mentions = [], startIndex = 0 } = route.params || {};
     
@@ -118,7 +118,7 @@ const MentionDetails = () => {
       onViewableItemsChanged={onViewableItemsChanged}
       initialScrollIndex={startIndex}   
       viewabilityConfig={viewabilityConfig}
-      getItemLayout={(data, index) => ({
+      getItemLayout={( index) => ({
         length: width,
         offset: width * index,
         index,
@@ -131,7 +131,6 @@ export default MentionDetails;
 
 const styles = StyleSheet.create({
   card: {
-    // paddingBottom: 20,
     gap:5,
     backgroundColor: colors.bgColor
   },
@@ -180,7 +179,7 @@ const styles = StyleSheet.create({
   time: {
     marginHorizontal: 10,
     fontSize: 12,
-    color: 'gray',
+    color: colors.time,
     marginTop: 3,
   },
 });

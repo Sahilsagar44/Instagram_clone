@@ -21,6 +21,7 @@ import user from './../data/userData';
 import EditProfileScreen from '../screens/ProfilePages/EditProfileScreen';
 import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
 import msgScreen from '../components/msgScreen/msgScreen';
+import CommentsPage from './../components/CommentsPage';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -121,6 +122,7 @@ const AppNavigator = () => {
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Stack.Screen name="shareProfilePage" component={shareProfilePage} />
             <Stack.Screen name="msgScreen" component={msgScreen} />
+            <Stack.Screen name="CommentsPage" component={CommentsPage} />
             
         </Stack.Navigator>
     );
