@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const ProfileMentions = () => {
   const navigation = useNavigation()
   const handlePress = (index) => {
-    navigation.navigate('MentionDetails', { mentions: user.mentions, startIndex: index })
+    navigation.navigate('MentionDetails', { mentions: user.mentions, startIndex: index });
   }
 
   const renderItem = ({ item, index }) => {
@@ -16,7 +16,7 @@ const ProfileMentions = () => {
       <TouchableOpacity
         style={styles.postContainer}
         activeOpacity={0.8}
-        onPress={() => handlePress(item, index)}
+       onPress={() => handlePress(index)}
 
       >
         <Image

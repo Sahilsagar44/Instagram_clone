@@ -22,6 +22,11 @@ const colors = {
   msgColor:'#222',
   borderTopColor: '#333',
   changeProfileTxt:'#9d96ffff',
+  smsBackground:'#2d6cbeff',
+  facebookBackground:'#1976D2',
+  whatsappBackground:'#25D366',
+  snapchatBackground:'#ffd633',
+  reportBtn:'#FF3B30',
   TextInput: {
     backgroundColor: '#2e2d2dff',
     borderColor: '#6B6B6B',

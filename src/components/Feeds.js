@@ -6,9 +6,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import colors from '../constants/colors';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import CommentsPage from './CommentsPage';
+import CommentsPage from './FunctionalityPages/CommentsPage';
+import SendPage from './FunctionalityPages/SendPage';
+import MenuPage from './FunctionalityPages/MenuPage';
 
-const { height:screenHeight }=Dimensions.get('window')
+const { height: screenHeight } = Dimensions.get('window')
 
 
 const Feeds = ({ post }) => {
@@ -26,7 +28,9 @@ const Feeds = ({ post }) => {
   const scaleAnimation = useRef(new Animated.Value(0)).current
   const opacityAnimation = useRef(new Animated.Value(0)).current
 
-  const refRBSheet = useRef()
+  const refRBSheetComment = useRef()
+  const refRBSheetSend = useRef()
+  const refRBSheetMenu = useRef()
 
   const triggerHeartAnimation = () => {
     scaleAnimation.setValue(0.5)
@@ -64,15 +68,24 @@ const Feeds = ({ post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={{ uri: post.user.profileImage }}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 50,
-          }}
-        />
-        <Text style={{ color: colors.fontColor, fontSize: 16, fontWeight: 'bold' }}>{post.user.name}</Text>
+        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 10, }}>
+          <Image
+            source={{ uri: post.user.profileImage }}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 50,
+            }}
+          />
+          <Text style={{ color: colors.fontColor, fontSize: 16, fontWeight: 'bold' }}>{post.user.name}</Text>
+        </View>
+        <TouchableOpacity onPress={()=>refRBSheetMenu.current.open()}>
+          <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/dots.png')}
+            style={{
+              width: 25,
+              height: 25,
+            }} />
+        </TouchableOpacity>
       </View>
       <GestureDetector gesture={doubleTap}>
         <View style={styles.postImageContainer}>
@@ -116,14 +129,14 @@ const Feeds = ({ post }) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+        <TouchableOpacity onPress={() => refRBSheetComment.current.open()}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <FontAwesome name="comment-o" size={25} color={colors.postIconColor} />
             <Text style={styles.font}>{commentsCount}</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setSendCount((prev) => prev + 1)}>
+        <TouchableOpacity onPress={() => refRBSheetSend.current.open()}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Feather name="send" size={25} color={colors.postIconColor} />
             <Text style={styles.font}>{sendCount}</Text>
@@ -146,22 +159,64 @@ const Feeds = ({ post }) => {
         <Text style={{ color: colors.subFontColor }}>{post.description}</Text>
       </View>
       <RBSheet
-        ref={refRBSheet}
+        ref={refRBSheetComment}
         height={screenHeight}
         draggable={true}
         dragOnContent={true}
         closeDuration={400}
         openDuration={400}
         customStyles={{
-          draggableIcon:{
-            backgroundColor:colors.fontColor,
-            width:50
+          draggableIcon: {
+            backgroundColor: colors.fontColor,
+            width: 45,
+            height: 1.5,
+            marginTop: 20
           },
-          container:{
-            backgroundColor:colors.commentsbgColor
+          container: {
+            backgroundColor: colors.commentsbgColor
           }
         }}>
-        <CommentsPage/>
+        <CommentsPage />
+      </RBSheet>
+      <RBSheet
+        ref={refRBSheetSend}
+        height={screenHeight * 0.7}
+        draggable={true}
+        dragOnContent={true}
+        closeDuration={400}
+        openDuration={400}
+        customStyles={{
+          draggableIcon: {
+            backgroundColor: colors.fontColor,
+            width: 45,
+            height: 1.5,
+            borderRadius: 14,
+            marginTop: 15,
+          },
+          container: {
+            backgroundColor: colors.commentsbgColor,
+          },
+        }}>
+        <SendPage />
+      </RBSheet>
+      <RBSheet
+        ref={refRBSheetMenu}
+        height={screenHeight * 0.6}
+        draggable={true}
+        dragOnContent={true}
+        closeDuration={400}
+        openDuration={400}
+        customStyles={{
+          draggableIcon: {
+            backgroundColor: colors.fontColor,
+            width: 50,
+            marginTop: 20
+          },
+          container: {
+            backgroundColor: colors.commentsbgColor,
+          },
+        }}>
+        <MenuPage />
       </RBSheet>
     </View>
   );
@@ -177,14 +232,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 18,
     alignItems: 'center',
     backgroundColor: colors.bgColor,
     height: '10%',
     width: '100%',
-    gap: 10,
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   postImageContainer: {
     width: '100%',

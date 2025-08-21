@@ -13,14 +13,11 @@ import colors from './../../../constants/colors';
 import user from './../../../data/userData';
 import  Feather  from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useRoute } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 const MentionDetails = () => {
-    // const [likesCount,setLikesCount] = useState()
-    const route = useRoute()
-    const { mentions = [], startIndex = 0 } = route.params || {};
+    const [likesCount,setLikesCount] = useState()
     
     const [playingVideoId, setPlayingVideoId] = useState(null); 
   
@@ -116,13 +113,7 @@ const MentionDetails = () => {
       contentContainerStyle={{ paddingBottom: 50 }}
       backgroundColor={colors.bgColor}
       onViewableItemsChanged={onViewableItemsChanged}
-      initialScrollIndex={startIndex}   
       viewabilityConfig={viewabilityConfig}
-      getItemLayout={( index) => ({
-        length: width,
-        offset: width * index,
-        index,
-      })}
     />
   );
 };
@@ -131,6 +122,7 @@ export default MentionDetails;
 
 const styles = StyleSheet.create({
   card: {
+    // paddingBottom: 20,
     gap:5,
     backgroundColor: colors.bgColor
   },
@@ -179,7 +171,7 @@ const styles = StyleSheet.create({
   time: {
     marginHorizontal: 10,
     fontSize: 12,
-    color: colors.time,
+    color: 'gray',
     marginTop: 3,
   },
 });

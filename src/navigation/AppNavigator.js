@@ -21,7 +21,8 @@ import user from './../data/userData';
 import EditProfileScreen from '../screens/ProfilePages/EditProfileScreen';
 import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
 import msgScreen from '../components/msgScreen/msgScreen';
-import CommentsPage from './../components/CommentsPage';
+import CommentsPage from '../components/FunctionalityPages/CommentsPage';
+import SendPage from '../components/FunctionalityPages/SendPage';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -111,7 +112,7 @@ function MainTabNavigator() {
 }
 const AppNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='Home'screenOptions={{ headerShown: false, orientation:'portrait'}}>
+        <Stack.Navigator initialRouteName='shareProfilePage'screenOptions={{ headerShown: false, orientation:'portrait'}}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
@@ -123,6 +124,7 @@ const AppNavigator = () => {
             <Stack.Screen name="shareProfilePage" component={shareProfilePage} />
             <Stack.Screen name="msgScreen" component={msgScreen} />
             <Stack.Screen name="CommentsPage" component={CommentsPage} />
+            <Stack.Screen name="SendPage" component={SendPage} />
             
         </Stack.Navigator>
     );

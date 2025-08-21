@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import usersPosts from '../data/postsData';
-import colors from '../constants/colors';
+import usersPosts from '../../data/postsData';
+import colors from '../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const CommentsPage = ({ postId }) => {
