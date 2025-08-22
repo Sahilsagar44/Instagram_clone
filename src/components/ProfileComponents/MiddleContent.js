@@ -48,7 +48,7 @@ const MiddleContent = () => {
                 <TouchableOpacity style={styles.Profile} activeOpacity={0.4} onPress={() => navigation.navigate('EditProfileScreen')}>
                     <Text style={styles.editProfileTxt}>Edit Profile</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.Profile} activeOpacity={0.4}>
+                <TouchableOpacity style={styles.Profile} activeOpacity={0.4} onPress={() => navigation.navigate('shareProfilePage')}>
                     <Text style={styles.editProfileTxt}>Share Profile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.inviteBtn} activeOpacity={0.4}>

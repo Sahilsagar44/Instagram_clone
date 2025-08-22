@@ -26,23 +26,21 @@ const HomeScreen = () => {
     extrapolate: 'clamp',
   });
 
-  // Your own profile story (always shown)
   const myStory = {
-    id: user.id,
+    id: `my_${user.id}`,
     userName: 'Your Story',
     profileImage: user.profileImage,
     hasStory: user.hasStory,
     isMe: true,
   };
 
-  // Flatten all stories from other users and filter out expired ones
   const otherStories = useMemo(() => {
     return OtherUsersData.flatMap(user =>
       user.stories
         .filter(story => !story.isExpired)
         .map(story => ({
           ...story,
-          userName: user.username,
+          username: user.username,
           profileImage: user.profileImage,
           isMe: false,
           hasStory: true,

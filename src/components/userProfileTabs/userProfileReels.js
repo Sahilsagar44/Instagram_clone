@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import colors from '../../constants/colors';
 
-const ProfileReels = ({data}) => {
+const userProfileReels = ({data}) => {
   const renderItem = ({ item }) => {
     return (
       <View style={styles.postContainer}>
@@ -45,7 +45,7 @@ const ProfileReels = ({data}) => {
   );
 };
 
-export default ProfileReels;
+export default userProfileReels;
 
 const styles = StyleSheet.create({
   fullContainer: {

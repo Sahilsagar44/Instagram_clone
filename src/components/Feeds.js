@@ -9,11 +9,15 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import CommentsPage from './FunctionalityPages/CommentsPage';
 import SendPage from './FunctionalityPages/SendPage';
 import MenuPage from './FunctionalityPages/MenuPage';
+import { useNavigation } from '@react-navigation/native';
 
 const { height: screenHeight } = Dimensions.get('window')
 
 
-const Feeds = ({ post }) => {
+const Feeds = ({ post, index }) => {
+  const navigation = useNavigation()
+  const [selectedPostId, setSelectedPostId] = useState(null);
+
   if (!post) {
     return null;
   }
@@ -68,18 +72,24 @@ const Feeds = ({ post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 10, }}>
+        <TouchableOpacity
+          style={{ alignItems: 'center', flexDirection: 'row', gap: 10 }}
+          onPress={() =>
+            navigation.navigate('UserProfileScreen', {
+               userId: post.userId,
+            })
+          }
+        >
           <Image
             source={{ uri: post.user.profileImage }}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 50,
-            }}
+            style={{ width: 40, height: 40, borderRadius: 50 }}
           />
-          <Text style={{ color: colors.fontColor, fontSize: 16, fontWeight: 'bold' }}>{post.user.name}</Text>
-        </View>
-        <TouchableOpacity onPress={()=>refRBSheetMenu.current.open()}>
+          <Text style={{ color: colors.fontColor, fontSize: 16, fontWeight: 'bold' }}>
+            {post.user.name}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => refRBSheetMenu.current.open()}>
           <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/dots.png')}
             style={{
               width: 25,
@@ -129,12 +139,19 @@ const Feeds = ({ post }) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => refRBSheetComment.current.open()}>
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedPostId(post.id);  
+            refRBSheetComment.current.open();
+          }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <FontAwesome name="comment-o" size={25} color={colors.postIconColor} />
             <Text style={styles.font}>{commentsCount}</Text>
           </View>
         </TouchableOpacity>
+
+
 
         <TouchableOpacity onPress={() => refRBSheetSend.current.open()}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -176,7 +193,7 @@ const Feeds = ({ post }) => {
             backgroundColor: colors.commentsbgColor
           }
         }}>
-        <CommentsPage />
+        {selectedPostId && <CommentsPage postId={selectedPostId} />}
       </RBSheet>
       <RBSheet
         ref={refRBSheetSend}

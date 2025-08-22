@@ -4,14 +4,16 @@ import ProfileHeader from '../../components/ProfileComponents/ProfileHeader'
 import ProfileTabs from '../../navigation/ProfileTabs';
 import MiddleContent from '../../components/ProfileComponents/MiddleContent';
 import colors from '../../constants/colors';
+import { myProfileTabs,userProfileTabs } from './../../navigation/profileTabsConfig';
 
-
-const ProfileScreen = () => {
+const ProfileScreen = ({route}) => {
+  const isMe = route?.params?.isMe ?? true; // pass this when navigating
+  const tabsConfig = isMe ? myProfileTabs : userProfileTabs;
   return (
     <View style={styles.container}>
       <ProfileHeader />
       <MiddleContent/>
-      <ProfileTabs />
+      <ProfileTabs tabsConfig={tabsConfig}/>
     </View>
   )
 }

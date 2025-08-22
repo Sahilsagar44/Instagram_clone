@@ -43,7 +43,7 @@ export const OtherUsersData = [
     createdAt: '2021-11-02T12:00:00.000Z',
     stories: [
       {
-        id: 's3', 
+        id: 's2', 
         image: 'https://picsum.photos/seed/201/400/700', 
         createdAt: '2025-08-13T15:20:00.000Z', 
         isExpired: false,
@@ -72,7 +72,7 @@ export const OtherUsersData = [
     createdAt: '2023-06-15T15:30:00.000Z',
     stories: [
       { 
-        id: 's2', 
+        id: 's3', 
         image: 'https://picsum.photos/seed/2002/400/700', 
         createdAt: '2025-08-07T10:00:00.000Z', 
         isExpired: false,
@@ -87,7 +87,6 @@ export const OtherUsersData = [
       { id: 'p4', image: 'https://picsum.photos/seed/p4/800/800', caption: 'Monsoon sketches', likes: 310, comments: 8, createdAt: '2025-07-01T11:00:00.000Z' },
     ],
   },
-  // 📝 Add more users as needed—just extend any story with hasComment and hasMessage!
 ];
 
 export default OtherUsersData;

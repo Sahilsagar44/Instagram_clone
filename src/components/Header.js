@@ -10,7 +10,7 @@ const Header = () => {
             <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/images/insta.png')}
                 style={styles.image} />
             <View style={styles.rightWrapper}>
-                <TouchableOpacity style={styles.iconWrapper}>
+                <TouchableOpacity style={styles.iconWrapper} onPress={()=>navigation.navigate('NewPostScreen')}>
                     <Image source={require('D:/sahil/react_native/Instagram_clone/src/assets/icons/add.png')}
                         style={styles.addImage} />
                 </TouchableOpacity>

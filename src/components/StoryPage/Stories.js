@@ -46,7 +46,7 @@ const Stories = ({ story, allStories, tapIndex }) => {
       </TouchableOpacity>
 
       <Text style={styles.usernameText} numberOfLines={1}>
-        {isMe ? 'Your Story' : story.userName}
+        {isMe ? 'Your Story' : story.username}
       </Text>
     </View>
   );

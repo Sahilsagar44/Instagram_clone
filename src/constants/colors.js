@@ -27,6 +27,7 @@ const colors = {
   whatsappBackground:'#25D366',
   snapchatBackground:'#ffd633',
   reportBtn:'#FF3B30',
+  shadowColor: '#000',
   TextInput: {
     backgroundColor: '#2e2d2dff',
     borderColor: '#6B6B6B',

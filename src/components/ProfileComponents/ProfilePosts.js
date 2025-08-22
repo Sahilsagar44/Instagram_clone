@@ -1,9 +1,8 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
-import user from '../../data/userData';
 import colors from '../../constants/colors';
 
-const ProfilePosts = () => {
+const ProfilePosts = ({data}) => {
   const renderItem = ({ item }) => {
     return (
       <View style={styles.postContainer}>
@@ -15,10 +14,17 @@ const ProfilePosts = () => {
     );
   };
 
+   if (!data || data.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>No Posts Available</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.fullContainer}>
       <FlatList
-        data={user.posts}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         numColumns={3}
@@ -51,5 +57,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+   emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.bgColor,
+  },
+  emptyText: {
+    color: colors.fontColor,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });

@@ -1,14 +1,14 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import user from '../../../data/userData';
-import colors from '../../../constants/colors';
+// import user from '../../../data/userData';
 import { useNavigation } from '@react-navigation/native';
+import colors from '../../constants/colors';
 
-const ProfileMentions = ({data}) => {
+const userProfileMentions = ({data}) => {
   const navigation = useNavigation()
-  const handlePress = (index) => {
-    navigation.navigate('MentionDetails', { mentions: user.mentions, startIndex: index });
-  }
+//   const handlePress = (index) => {
+//     navigation.navigate('MentionDetails', { mentions: user.mentions, startIndex: index });
+//   }
 
   const renderItem = ({ item, index }) => {
 
@@ -16,7 +16,7 @@ const ProfileMentions = ({data}) => {
       <TouchableOpacity
         style={styles.postContainer}
         activeOpacity={0.8}
-       onPress={() => handlePress(index)}
+    //    onPress={() => handlePress(index)}
 
       >
         <Image
@@ -67,7 +67,7 @@ const ProfileMentions = ({data}) => {
   );
 };
 
-export default ProfileMentions;
+export default userProfileMentions;
 
 const styles = StyleSheet.create({
   fullContainer: {
