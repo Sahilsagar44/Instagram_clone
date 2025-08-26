@@ -23,10 +23,12 @@ import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
 import msgScreen from '../components/msgScreen/msgScreen';
 import CommentsPage from '../components/FunctionalityPages/CommentsPage';
 import SendPage from '../components/FunctionalityPages/SendPage';
-import NewPostScreen from './../screens/NewPostScreen';
+import NewPostScreen from '../screens/newPostScreen/NewPostScreen';
 import UserProfileScreen from '../screens/ProfilePages/UserProfileScreen';
 import msgProfile from '../components/msgScreen/msgProfile';
 import ProfileTabs from './ProfileTabs';
+import CaptionScreen from '../screens/newPostScreen/CaptionScreen';
+import PreviewScreen from '../screens/newPostScreen/PreviewScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -133,6 +135,8 @@ const AppNavigator = () => {
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
             <Stack.Screen name="msgProfile" component={msgProfile} />
             <Stack.Screen name="ProfileTabs" component={ProfileTabs} />
+            <Stack.Screen name="CaptionScreen" component={CaptionScreen} />
+            <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
             
         </Stack.Navigator>
     );

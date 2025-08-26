@@ -41,7 +41,8 @@ const colors = {
   LinearColor:{
     start:'#ffc505ff',
     end:'#ff2b05ff'
-  }
+  },
+  smallButtonColor: '#2c2c2cff'
 }
 
 export default colors

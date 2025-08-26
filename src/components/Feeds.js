@@ -10,6 +10,7 @@ import CommentsPage from './FunctionalityPages/CommentsPage';
 import SendPage from './FunctionalityPages/SendPage';
 import MenuPage from './FunctionalityPages/MenuPage';
 import { useNavigation } from '@react-navigation/native';
+import { runOnJS } from 'react-native-worklets';
 
 const { height: screenHeight } = Dimensions.get('window')
 
@@ -53,20 +54,24 @@ const Feeds = ({ post, index }) => {
     })
   }
 
-  const doubleTap = Gesture.Tap()
-    .numberOfTaps(2)
-    .onStart(() => {
-      setIsLiked((prevIsLiked) => {
-        if (prevIsLiked) {
-          setLikesCount((count) => Math.max(0, count - 1));
-          return false;
-        } else {
-          setLikesCount((count) => count + 1);
-          triggerHeartAnimation();
-          return true;
-        }
-      });
-    });
+  const handleDoubleTap = () => {
+  setIsLiked((prevIsLiked) => {
+    if (prevIsLiked) {
+      setLikesCount((count) => Math.max(0, count - 1));
+      return false;
+    } else {
+      setLikesCount((count) => count + 1);
+      triggerHeartAnimation();
+      return true;
+    }
+  });
+};
+
+const doubleTap = Gesture.Tap()
+  .numberOfTaps(2)
+  .onStart(() => {
+    runOnJS(handleDoubleTap)();
+  });
 
 
   return (
