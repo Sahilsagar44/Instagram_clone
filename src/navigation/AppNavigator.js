@@ -16,7 +16,7 @@ import { Image, View } from 'react-native';
 import colors from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MentionDetails from '../components/ProfileComponents/ProfileMentions/MentionDetails';
-import ProfileHighlightStory from '../components/StoryPage/ProfileHighlightStory';
+import ProfileHighlightStory from '../components/ProfileComponents/ProfileHighlightStory';
 import user from './../data/userData';
 import EditProfileScreen from '../screens/ProfilePages/EditProfileScreen';
 import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
@@ -25,6 +25,8 @@ import CommentsPage from '../components/FunctionalityPages/CommentsPage';
 import SendPage from '../components/FunctionalityPages/SendPage';
 import NewPostScreen from './../screens/NewPostScreen';
 import UserProfileScreen from '../screens/ProfilePages/UserProfileScreen';
+import msgProfile from '../components/msgScreen/msgProfile';
+import ProfileTabs from './ProfileTabs';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -129,6 +131,8 @@ const AppNavigator = () => {
             <Stack.Screen name="SendPage" component={SendPage} />
             <Stack.Screen name="NewPostScreen" component={NewPostScreen} />
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+            <Stack.Screen name="msgProfile" component={msgProfile} />
+            <Stack.Screen name="ProfileTabs" component={ProfileTabs} />
             
         </Stack.Navigator>
     );

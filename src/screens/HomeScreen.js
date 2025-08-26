@@ -13,8 +13,8 @@ import user from '../data/userData';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import usersPosts from '../data/postsData';
 import { OtherUsersData } from './../data/otherUsersData';
-import Stories from '../components/StoryPage/Stories';
 import colors from '../constants/colors';
+import Stories from './../components/Stories';
 
 const HomeScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;

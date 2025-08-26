@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import user from './../../data/userData';
-import colors from './../../constants/colors';
+import user from '../../data/userData';
+import colors from '../../constants/colors';
 import Feather from 'react-native-vector-icons/Feather';
 
 const ProfileHighlightStory = ({ route }) => {
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
   icons: {
     width: 26,
     height: 26,
+    
   },
   iconsHeading: {
     fontSize: 12,

@@ -6,6 +6,9 @@ import userProfileReels from '../components/userProfileTabs/userProfileReels';
 import user from '../data/userData';
 import usersPosts from './../data/postsData';
 import userProfileMentions from './../components/userProfileTabs/userProfileMention';
+import msgProfilePostTab from '../components/msgScreen/msgProfilePostTab';
+import msgProfileRepostTab from '../components/msgScreen/msgProfileRepostTab';
+import msgProfileLinksTab from '../components/msgScreen/msgProfileLinksTab';
 
 // data/profileTabsConfig.js
 export const myProfileTabs = [
@@ -27,7 +30,7 @@ export const myProfileTabs = [
     },
     {
         name: "Mentions",
-        component:ProfileMentions,
+        component: ProfileMentions,
         dataset: user.mentions,
         activeIcon: require('../assets/icons/Mentions.png'),
         inactiveIcon: require('../assets/icons/Mentions(1).png'),
@@ -60,3 +63,29 @@ export const userProfileTabs = [
         size: 28,
     },
 ];
+export const userMsgProfileTabs = [
+    {
+        name: 'shared_media',
+        component: msgProfilePostTab,
+        dataset: usersPosts,
+        activeIcon: require('../assets/icons/photo_video.png'),
+        inactiveIcon: require('../assets/icons/photo_video(1).png'),
+        size:28,
+    },
+    {
+        name: 'reposted',
+        component: msgProfileRepostTab,
+        dataset: usersPosts,
+        activeIcon: require('../assets/icons/reposted.png'),
+        inactiveIcon: require('../assets/icons/reposted(1).png'),
+        size:28,
+    },
+    {
+        name: 'links',
+        component: msgProfileLinksTab,
+        dataset: usersPosts,
+        activeIcon: require('../assets/icons/link.png'),
+        inactiveIcon: require('../assets/icons/link(1).png'),
+        size:28,
+    }
+]

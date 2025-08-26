@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import colors from '../../constants/colors';
+
 import { useNavigation } from '@react-navigation/native';
+import colors from '../constants/colors';
 
 const Stories = ({ story, allStories, tapIndex }) => {
   const navigation = useNavigation();

@@ -31,7 +31,7 @@ const MsgScreen = () => {
                         <Ionicons name="arrow-back" size={26} color={colors.postIconColor} />
                     </TouchableOpacity>
                     <Image source={{ uri: chat.user.profileImage }} style={styles.headerImage} />
-                    <TouchableOpacity style={styles.headerCenter} activeOpacity={0.8}>
+                    <TouchableOpacity style={styles.headerCenter} activeOpacity={0.8} onPress={()=>navigation.navigate('msgProfile',{chatId:chat.id})}>
                         <Text style={styles.headertxt}>{chat.user.name}</Text>
                         <Text style={styles.subHeadertxt}>@{chat.user.username}</Text>
                     </TouchableOpacity>
