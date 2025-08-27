@@ -29,6 +29,7 @@ import msgProfile from '../components/msgScreen/msgProfile';
 import ProfileTabs from './ProfileTabs';
 import CaptionScreen from '../screens/newPostScreen/CaptionScreen';
 import PreviewScreen from '../screens/newPostScreen/PreviewScreen';
+import CreatePostScreen from '../screens/newPostScreen/CreatePostScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -137,6 +138,7 @@ const AppNavigator = () => {
             <Stack.Screen name="ProfileTabs" component={ProfileTabs} />
             <Stack.Screen name="CaptionScreen" component={CaptionScreen} />
             <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+            <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} />
             
         </Stack.Navigator>
     );

@@ -1,5 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import React from "react";
+import colors from "../../constants/colors";
 
 const MiddleContentPostScreen = ({ cameraRef, setCapturedPhoto }) => {
   return (
@@ -43,15 +44,15 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
     borderWidth: 3,
-    borderColor: "white",
+    borderColor: colors.whiteBorder,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: colors.bgColor,
   },
   captureButtonInner: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: "white",
+    backgroundColor: colors.whiteBorder,
   },
 });

@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TouchableOpacity, 
-  Linking,
-  Alert,
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
   Platform,
   PermissionsAndroid,
   Image
 } from "react-native";
-import { 
-  Camera, 
-  useCameraDevice, 
-  useCameraPermission 
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission
 } from "react-native-vision-camera";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MiddleContentPostScreen from "./MiddleContentPostScreen";
+import colors from "../../constants/colors";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const NewPostScreen = ({ navigation }) => {
   const [isPermissionLoading, setIsPermissionLoading] = useState(true);
@@ -38,6 +38,8 @@ const NewPostScreen = ({ navigation }) => {
             await PermissionsAndroid.requestMultiple([
               PermissionsAndroid.PERMISSIONS.CAMERA,
               PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+              PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+              
             ]);
           }
         }
@@ -65,6 +67,25 @@ const NewPostScreen = ({ navigation }) => {
         <Text style={{ color: "white" }}>No Camera Available</Text>
       </View>
     );
+  }
+
+
+  //OPEN GALARY AND SAVE PHOTO OR ALSO SEE'S VIDEO IN THIS FUNCTION
+  const openGallery = () => {
+    launchImageLibrary(
+      {mediaType:"mixed",selectionLimit:1},
+      (response) => {
+        if(response.didCancel){
+          console.log('User cancelled image picker');
+        }else if(response.errorCode){
+          console.log('picker error', response.errorMessage);
+        }
+        else if(response.assets && response.assets.length > 0){
+          const pickedPhoto = response.assets[0].uri;
+          setCapturedPhoto(pickedPhoto);
+        }
+      }
+    )
   }
 
   return (
@@ -106,9 +127,9 @@ const NewPostScreen = ({ navigation }) => {
 
         {/* Thumbnail Preview */}
         {capturedPhoto && (
-          <View style={styles.thumbnailWrapper}>
+          <TouchableOpacity style={styles.thumbnailWrapper} onPress={openGallery}>
             <Image source={{ uri: capturedPhoto }} style={styles.thumbnail} />
-          </View>
+          </TouchableOpacity>
         )}
       </View>
 
@@ -124,7 +145,10 @@ const NewPostScreen = ({ navigation }) => {
 export default NewPostScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "black" },
+  container: { 
+    flex: 1, 
+    backgroundColor: colors.bgColor
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -134,10 +158,26 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 60 : 15,
     zIndex: 10,
   },
-  headerLeft: { flexDirection: "row", alignItems: "center", gap: 20 },
-  headerTitle: { fontSize: 20, color: "#fff", fontWeight: "500" },
-  nextButton: { fontSize: 18, color: "#3797EF", fontWeight: "500" },
-  cameraContainer: { flex: 1, overflow: "hidden", backgroundColor: "black" },
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 20
+  },
+  headerTitle: {
+    fontSize: 20,
+    color: colors.fontColor,
+    fontWeight: "500"
+  },
+  nextButton: {
+    fontSize: 18,
+    color: colors.ButtonColor,
+    fontWeight: "500"
+  },
+  cameraContainer: { 
+    flex: 1, 
+    overflow: "hidden", 
+    backgroundColor: colors.bgColor
+  },
   thumbnailWrapper: {
     position: "absolute",
     bottom: 120,
@@ -145,7 +185,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     borderWidth: 2,
-    borderColor: "white",
+    borderColor: colors.whiteBorder,
   },
-  thumbnail: { width: 60, height: 60, borderRadius: 10 },
+  thumbnail: { 
+    width: 60, 
+    height: 60, 
+    borderRadius: 10 
+  },
 });

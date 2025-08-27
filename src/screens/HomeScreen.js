@@ -55,7 +55,8 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} />
 
-      <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslateY }] }]}>
+
+      <Animated.View style={[styles.  header, { transform: [{ translateY: headerTranslateY }] }]}>
         <Header />
       </Animated.View>
 
