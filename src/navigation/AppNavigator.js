@@ -23,13 +23,14 @@ import shareProfilePage from '../screens/ProfilePages/shareProfilePage';
 import msgScreen from '../components/msgScreen/msgScreen';
 import CommentsPage from '../components/FunctionalityPages/CommentsPage';
 import SendPage from '../components/FunctionalityPages/SendPage';
-import NewPostScreen from '../screens/newPostScreen/NewPostScreen';
 import UserProfileScreen from '../screens/ProfilePages/UserProfileScreen';
 import msgProfile from '../components/msgScreen/msgProfile';
 import ProfileTabs from './ProfileTabs';
-import CaptionScreen from '../screens/newPostScreen/CaptionScreen';
-import PreviewScreen from '../screens/newPostScreen/PreviewScreen';
-import CreatePostScreen from '../screens/newPostScreen/CreatePostScreen';
+import CaptionScreen from '../screens/CreateScreenPages/CreatePostScreenPages/CaptionScreen';
+import PreviewScreen from '../screens/CreateScreenPages/CreatePostScreenPages/PreviewScreen';
+import CameraScreen from '../screens/CreateScreenPages/CreatePostScreenPages/CameraScreen';
+import CreatePostScreen from '../screens/CreateScreenPages/CreatePostScreenPages/CreatePostScreen';
+import CreateScreen from '../screens/CreateScreenPages/CreateScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -132,13 +133,15 @@ const AppNavigator = () => {
             <Stack.Screen name="msgScreen" component={msgScreen} />
             <Stack.Screen name="CommentsPage" component={CommentsPage} />
             <Stack.Screen name="SendPage" component={SendPage} />
-            <Stack.Screen name="NewPostScreen" component={NewPostScreen} />
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
             <Stack.Screen name="msgProfile" component={msgProfile} />
             <Stack.Screen name="ProfileTabs" component={ProfileTabs} />
-            <Stack.Screen name="CaptionScreen" component={CaptionScreen} />
-            <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+            {/* Create Screen */}
+            <Stack.Screen name="CreateScreen" component={CreateScreen} />
+            <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} />
+            <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+            <Stack.Screen name="CaptionScreen" component={CaptionScreen} />
             
         </Stack.Navigator>
     );

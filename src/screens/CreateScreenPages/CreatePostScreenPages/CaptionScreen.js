@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { StyleSheet, View, Image, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Switch } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import colors from "../../constants/colors";
+import colors from "../../../constants/colors";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MusicData from "../../data/MusicData";
+import MusicData from "../../../data/MusicData";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Video from "react-native-video";
 
 const nearbyLocations = ["Starbucks Coffee", "Central Park", "Times Square", "Madison Square Garden", "Empire State Building", "Fifth Avenue", "Rockefeller Center", "Brooklyn Bridge", "Grand Central Terminal", "Bryant Park"];
 
 const CaptionScreen = ({ route, navigation }) => {
-    const { photo } = route.params;
+    const { photo, video, uri, type, duration } = route.params || {};
+    const finalAsset = {
+        uri: photo || video || uri,
+        type: type || (video ? "video" : photo ? "image" : null),
+        duration: duration
+    };
     const [caption, setCaption] = useState("");
 
     const handleShare = () => {
@@ -26,7 +32,6 @@ const CaptionScreen = ({ route, navigation }) => {
             style={styles.container}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
-            {/* Header */}
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -36,9 +41,14 @@ const CaptionScreen = ({ route, navigation }) => {
                 </View>
             </View>
 
-            {/* Scrollable content */}
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-                <Image source={{ uri: photo }} style={styles.bigImage} />
+                <View style={styles.previewContainer}>
+                    {finalAsset.type?.startsWith("video") ? (
+                        <Video source={{ uri: finalAsset.uri }} style={styles.bigImage} resizeMode="contain" paused />
+                    ) : finalAsset.uri ? (
+                        <Image source={{ uri: finalAsset.uri }} style={styles.bigImage} />
+                    ) : <Text style={{ color: colors.fontColor }}>No media selected</Text>}
+                </View>
 
                 <TextInput
                     style={styles.captionInput}
@@ -133,7 +143,7 @@ const CaptionScreen = ({ route, navigation }) => {
                     />
                 </TouchableOpacity>
 
-                <View style={{borderBottomColor:colors.borderTopColor,borderWidth:2}}>
+                <View style={{ borderBottomColor: colors.borderTopColor, borderWidth: 2 }}>
                     <TouchableOpacity style={styles.mentionsBtn}>
                         <View style={styles.mentionsBtnContent}>
                             <MaterialCommunityIcons name='eye' color={colors.postIconColor} size={26} />
@@ -203,11 +213,12 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     bigImage: {
-        width: "100%",
-        height: 200,
-        resizeMode: "contain",
-        borderRadius: 12,
+        width: "60%",
+        height: 280,
+        resizeMode: "cover",
+        borderRadius: 20,
         marginBottom: 15,
+        alignSelf:'center'
     },
     captionInput: {
         color: colors.fontColor,
@@ -293,5 +304,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 18,
         marginTop: 3
-    }
+    },
+    previewContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 15,
+        //  borderRadius: 20, // Add this line
+        // overflow: 'hidden',
+    },
+
 });

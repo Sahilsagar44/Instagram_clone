@@ -43,7 +43,9 @@ const colors = {
     end:'#ff2b05ff'
   },
   smallButtonColor: '#2c2c2cff',
-  whiteBorder: '#FFFFFF'
+  whiteBorder: '#FFFFFF',
+  cameraBgColor: '#2e2d2dff',
+  tabBarBgColor: '#1c1c1c'
 }
 
 export default colors

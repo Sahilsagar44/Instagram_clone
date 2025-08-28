@@ -1,15 +1,29 @@
 import React from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import colors from "../../constants/colors";
-import { newPostPreviewIcons } from "../../data/IconsData";
+import colors from "../../../constants/colors";
+import { newPostPreviewIcons } from "../../../data/IconsData";
+import Video from "react-native-video";
+import { useIsFocused } from "@react-navigation/native";
 
 const PreviewScreen = ({ route, navigation }) => {
-    const { photo } = route.params;
+    const { photo, uri, type, duration } = route.params || {};
+    const isFocused = useIsFocused()
+
+    // normalize
+    const finalUri = photo || uri;
+    const finalType = type || (photo ? "image" : null);
+
+    const handleNext = () => {
+        navigation.navigate("CaptionScreen", {
+            uri: finalUri,
+            type: finalType,
+            duration,
+        });
+    };
 
     return (
         <View style={styles.container}>
-            {/* Header */}
             <View style={styles.header}>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -17,12 +31,25 @@ const PreviewScreen = ({ route, navigation }) => {
                     </TouchableOpacity>
                     <Text style={styles.title}>Preview</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("CaptionScreen", { photo })}>
+                <TouchableOpacity onPress={handleNext}>
                     <Text style={styles.nextButton}>Next</Text>
                 </TouchableOpacity>
             </View>
 
-            <Image source={{ uri: photo }} style={styles.image} resizeMode="contain" />
+            {finalType?.startsWith("video") ? (
+                <Video
+                    source={{ uri: finalUri }}
+                    style={styles.image}
+                    resizeMode="contain"
+                    paused={!isFocused} 
+                />
+            ) : (
+                <Image
+                    source={{ uri: finalUri }}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
+            )}
 
 
             <View style={styles.optionsList}>

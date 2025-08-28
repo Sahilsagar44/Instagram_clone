@@ -28,6 +28,7 @@ const Feeds = ({ post, index }) => {
   const [commentsCount, setCommentsCount] = useState(post.commentsCount || 0);
   const [likesCount, setLikesCount] = useState(post.likesCount || 0);
   const [sendCount, setSendCount] = useState(post.sendCount || 0);
+  const [tapPosition, setTapPosition] = useState({ x: 0, y: 0 });
 
 
   const scaleAnimation = useRef(new Animated.Value(0)).current
@@ -37,40 +38,45 @@ const Feeds = ({ post, index }) => {
   const refRBSheetSend = useRef()
   const refRBSheetMenu = useRef()
 
-  const triggerHeartAnimation = () => {
-    scaleAnimation.setValue(0.5)
-    opacityAnimation.setValue(1)
+  const triggerHeartAnimation = (x, y) => {
+  const heartSize = 100;
+  const halfContainer = heartSize / 2;
 
-    Animated.spring(scaleAnimation, {
-      toValue: 1,
-      friction: 3,
+  const heartX = Math.max(halfContainer, Math.min(x, styles.postImageContainer.height - halfContainer));
+  const heartY = Math.max(halfContainer, Math.min(y, styles.postImageContainer.height - halfContainer));
+
+  setTapPosition({ x: heartX, y: heartY });
+
+  scaleAnimation.setValue(0.5);
+  opacityAnimation.setValue(1);
+
+  Animated.spring(scaleAnimation, {
+    toValue: 1,
+    friction: 3,
+    // bounce: 0,
+
+    useNativeDriver: true,
+  }).start(() => {
+    Animated.timing(opacityAnimation, {
+      toValue: 0,
+      duration: 200,
       useNativeDriver: true,
-    }).start(() => {
-      Animated.timing(opacityAnimation, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start()
-    })
-  }
-
-  const handleDoubleTap = () => {
-  setIsLiked((prevIsLiked) => {
-    if (prevIsLiked) {
-      setLikesCount((count) => Math.max(0, count - 1));
-      return false;
-    } else {
-      setLikesCount((count) => count + 1);
-      triggerHeartAnimation();
-      return true;
-    }
+    }).start();
   });
+};
+
+  const handleDoubleTap = (event) => {
+    const {x,y} = event
+    setIsLiked(true);
+    setLikesCount((count) => (isLiked ? count : count + 1));
+    triggerHeartAnimation(x, y);
+
 };
 
 const doubleTap = Gesture.Tap()
   .numberOfTaps(2)
-  .onStart(() => {
-    runOnJS(handleDoubleTap)();
+  .onStart((event) => {
+    runOnJS(handleDoubleTap)(event);
   });
 
 
@@ -109,10 +115,13 @@ const doubleTap = Gesture.Tap()
             resizeMode="cover"
             style={styles.postImage}
           />
+          <View style={styles.heartAnimationContainer}>
           <Animated.View
             style={[
               styles.animatedHeart,
               {
+                left: tapPosition.x - 50,
+                top: tapPosition.y - 50,
                 transform: [{
                   scale: scaleAnimation
                 }],
@@ -122,6 +131,7 @@ const doubleTap = Gesture.Tap()
           >
             <MaterialIcons name="favorite" size={100} color="white" />
           </Animated.View>
+          </View>
         </View>
 
       </GestureDetector>
@@ -265,12 +275,21 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 400,
     overflow: 'hidden',
+    position: 'relative',
   },
   postImage: {
     width: '100%',
     height: '100%',
-    aspectRatio: 1,
+    // aspectRatio: 1,
+    borderRadius: 12,
   },
+  heartAnimationContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+}, 
   putterContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -291,11 +310,5 @@ const styles = StyleSheet.create({
   },
   animatedHeart: {
     position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
 });
