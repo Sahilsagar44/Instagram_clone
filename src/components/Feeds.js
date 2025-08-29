@@ -54,7 +54,6 @@ const Feeds = ({ post, index }) => {
     toValue: 1,
     friction: 3,
     // bounce: 0,
-
     useNativeDriver: true,
   }).start(() => {
     Animated.timing(opacityAnimation, {

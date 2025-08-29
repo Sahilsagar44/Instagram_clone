@@ -4,7 +4,7 @@ import React from 'react'
 const CreateReelScreen = () => {
   return (
     <View>
-      <Text>CreateReelScreen</Text>
+      <Text style={{ color: 'white' ,justifyContent: 'center', alignItems: 'center' }}>CreateReelScreen</Text>
     </View>
   )
 }

@@ -1,23 +1,56 @@
-import React, { useRef, useState } from "react";
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TouchableOpacity, 
-  Image, 
-  Platform, 
-  Alert 
+import React, { useEffect, useRef, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  Alert,
+  Image
 } from "react-native";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import colors from "../../../constants/colors";
-import { launchImageLibrary } from "react-native-image-picker";
-import { GestureDetector } from 'react-native-gesture-handler';
+import { useIsFocused } from "@react-navigation/native";
+// import { launchImageLibrary } from "react-native-image-picker";
+import Feather from 'react-native-vector-icons/Feather';
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 
 const CameraScreen = ({ navigation }) => {
   const [capturedPhoto, setCapturedPhoto] = useState(null);
-  const device = useCameraDevice("back");
   const cameraRef = useRef(null);
+  const [flashEnabled, setFlashEnabled] = useState(false);
+  const [photo,setPhoto] = useState([])
+  const [camera,setCamera] = useState(false);
+  const device = useCameraDevice(camera ? 'back' : 'front');
+
+
+  const isFocused = useIsFocused();
+
+
+  const openGallery = async () => {
+    try {
+      const result = await CameraRoll.getPhotos({
+        first: 30,
+        assetType: "All",
+        after: pageInfo.endCursor,
+      });
+       setPhoto((prev) => [...prev, ...result.edges]);
+      // setPageInfo({
+      //   hasNextPage: result.page_info.has_next_page,
+      //   endCursor: result.page_info.end_cursor,
+      // });
+    } catch (error) {
+      console.log('camera error:--',error);
+    }
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      setCapturedPhoto(null);
+    }
+  }, [isFocused]);
 
   const handleClose = () => {
     navigation?.goBack();
@@ -31,46 +64,18 @@ const CameraScreen = ({ navigation }) => {
     );
   }
 
-  const GestureDetector = (gesture) => {
-    console.log("Gesture detected",gesture);
-    return (
-      <GestureDetector>
-        <Camera
-          ref={cameraRef}
-          style={StyleSheet.absoluteFill}
-          device={device}
-          isActive={true}
-          photo={true}
-        />
-      </GestureDetector>
-    );
-  };
-
-  // OPEN GALLERY
-  const openGallery = () => {
-    launchImageLibrary({ mediaType: "mixed", selectionLimit: 1 }, (response) => {
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.errorCode) {
-        console.log("picker error", response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
-        const pickedPhoto = response.assets[0].uri;
-        setCapturedPhoto(pickedPhoto);
-      }
-    });
-  };
-
   // CAPTURE PHOTO
   const handleCapturePhoto = async () => {
-    console.log("Capture photo button pressed");
     try {
       if (cameraRef?.current) {
         const photo = await cameraRef.current.takePhoto({
           qualityPrioritization: "speed",
-          flash: "off",
+          flash: flashEnabled ? "on" : "off",
           enableAutoStabilization: true,
         });
-        setCapturedPhoto(`file://${photo.path}`);
+        const photoUri = `file://${photo.path}`;
+        setCapturedPhoto(photoUri);
+        navigation.navigate("PreviewScreen", { photo: photoUri });
       }
     } catch (error) {
       console.error("Error taking photo:", error);
@@ -81,42 +86,40 @@ const CameraScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={handleClose}>
-            <Ionicons name="close-outline" size={30} color="#fff" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>New Post</Text>
-        </View>
-        <TouchableOpacity
-          disabled={!capturedPhoto}
-          onPress={() => navigation.navigate("PreviewScreen", { photo: capturedPhoto })}
-        >
-          <Text style={[styles.nextButton, { opacity: capturedPhoto ? 1 : 0.5 }]}>
-            Next
-          </Text>
+        <TouchableOpacity onPress={handleClose}>
+          <Ionicons name="close-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setFlashEnabled(!flashEnabled)}>
+          <Ionicons name={flashEnabled ? "flash" : "flash-off"} size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}>
+          <FontAwesome name="gear" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
 
       <View style={styles.cameraContainer}>
-        <Camera 
-          ref={cameraRef} 
-          style={StyleSheet.absoluteFill} 
-          device={device} 
-          isActive={true} 
-          photo={true} 
-         
+        <Camera
+          ref={cameraRef}
+          style={StyleSheet.absoluteFill}
+          isActive={true}
+          device={device}
+          photo={true}
         />
-
-        {capturedPhoto && (
-          <TouchableOpacity style={styles.thumbnailWrapper} onPress={openGallery}>
-            <Image source={{ uri: capturedPhoto }} style={styles.thumbnail} />
-          </TouchableOpacity>
-        )}
       </View>
 
       <View style={styles.controlsContainer}>
-        <TouchableOpacity style={styles.captureButton} onPress={handleCapturePhoto}>
-          <View style={styles.captureButtonInner} />
+        <TouchableOpacity style={styles.thumbnailContainer}>
+          {/* <Image /> */}
+
+        </TouchableOpacity>
+
+        {!capturedPhoto && (
+          <TouchableOpacity style={styles.captureButton} onPress={handleCapturePhoto}>
+            <View style={styles.captureButtonInner} />
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={()=> setCamera(!camera)}>
+          <Feather name='refresh-ccw' size={30} color={colors.postIconColor} />
         </TouchableOpacity>
       </View>
     </View>
@@ -125,17 +128,21 @@ const CameraScreen = ({ navigation }) => {
 
 export default CameraScreen;
 
-
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bgColor },
+  container: {
+    flex: 1,
+    backgroundColor: colors.bgColor
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 15,
+    paddingVertical: 20,
+    position: 'absolute',
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "ios" ? 60 : 15,
-    zIndex: 10,
+    width: '100%',
+    zIndex: 1
   },
   headerLeft: {
     flexDirection: "row",
@@ -147,36 +154,21 @@ const styles = StyleSheet.create({
     color: colors.fontColor,
     fontWeight: "500",
   },
-  nextButton: {
-    fontSize: 18,
-    color: colors.ButtonColor,
-    fontWeight: "500",
-  },
   cameraContainer: {
     flex: 1,
+    position: 'relative',
     overflow: "hidden",
     backgroundColor: colors.bgColor,
-  },
-  thumbnailWrapper: {
-    position: "absolute",
-    bottom: 120,
-    left: 20,
-    borderRadius: 10,
-    overflow: "hidden",
-    borderWidth: 2,
-    borderColor: colors.whiteBorder,
-  },
-  thumbnail: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
+    justifyContent: 'space-between',
   },
   controlsContainer: {
+    justifyContent: 'space-around',
     position: "absolute",
     bottom: 40,
     left: 0,
     right: 0,
     alignItems: "center",
+    flexDirection: 'row'
   },
   captureButton: {
     width: 70,
@@ -194,4 +186,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: colors.whiteBorder,
   },
+  thumbnailContainer: {
+    borderRadius: 10,
+    borderColor: colors.whiteBorder,
+    borderWidth: 2,
+    width: 40,
+    height: 40
+  }
 });

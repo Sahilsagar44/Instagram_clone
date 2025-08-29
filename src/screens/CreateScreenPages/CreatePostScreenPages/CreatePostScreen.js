@@ -10,7 +10,7 @@ const numColumns = 4;
 const screenWidth = Dimensions.get("window").width;
 const imageSize = screenWidth / numColumns;
 
-const CreatePostScreen = ({ navigation = useNavigation() }) => {
+const CreatePostScreen = ({ navigation, mode }) => {
   const [photos, setPhotos] = useState([]);
   const [pageInfo, setPageInfo] = useState({ hasNextPage: true, endCursor: null });
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ const CreatePostScreen = ({ navigation = useNavigation() }) => {
 
     try {
       const result = await CameraRoll.getPhotos({
-        first: 50,
+        first: 30,
         assetType: "All",
         after: pageInfo.endCursor,
       });
@@ -90,7 +90,7 @@ const CreatePostScreen = ({ navigation = useNavigation() }) => {
                 source={{ uri }}
                 style={{ width: 0, height: 0 }}
                 onLoad={(data) => handleVideoLoad(uri, data.duration)}
-                paused={!isFocused}
+                paused={!isFocused ? true : false}
               />
             )}
             {duration && (
@@ -137,10 +137,10 @@ const CreatePostScreen = ({ navigation = useNavigation() }) => {
               style={styles.previewImage}
               repeat
               resizeMode="contain"
-              paused={!isFocused}
+              paused={!isFocused ? true : false}
             />
           ) : (
-      
+
             <Image source={{ uri: selectedAsset.image.uri }} style={styles.previewImage} />
           ))}
       </View>
@@ -155,6 +155,10 @@ const CreatePostScreen = ({ navigation = useNavigation() }) => {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading ? <ActivityIndicator size="large" /> : null}
         contentContainerStyle={{ paddingVertical: 12 }}
+        initialNumToRender={12}
+        maxToRenderPerBatch={8}
+        windowSize={3}
+        removeClippedSubviews={true}
       />
     </View>
   );
@@ -163,7 +167,10 @@ const CreatePostScreen = ({ navigation = useNavigation() }) => {
 export default CreatePostScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bgColor },
+  container: {
+    flex: 1,
+    backgroundColor: colors.bgColor
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -171,9 +178,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 12,
   },
-  headerTitle: { fontSize: 18, fontWeight: "bold", color: colors.fontColor },
-  nextBtn: { fontSize: 16, fontWeight: "600", color: colors.ButtonColor },
-  image: { width: imageSize - 4, height: imageSize - 4, margin: 2, borderRadius: 8 },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.fontColor
+  },
+  nextBtn: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.ButtonColor
+  },
+  image: {
+    width: imageSize - 4,
+    height: imageSize - 4,
+    margin: 2,
+    borderRadius: 8
+  },
   cameraContainer: {
     flex: 1,
     justifyContent: "center",
@@ -182,8 +202,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.cameraBgColor,
   },
-  previewContainer: { justifyContent: "center", alignItems: "center", marginVertical: 10, paddingHorizontal: 15 },
-  previewImage: { resizeMode: "contain", width: "100%", height: 300 },
-  durationOverlay: { position: "absolute", right: 4, bottom: 4 },
-  durationText: { color: colors.fontColor, fontSize: 13, fontWeight: "bold", letterSpacing: 0.3 },
+  previewContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+    paddingHorizontal: 15
+  },
+  previewImage: {
+    resizeMode: "contain",
+    width: "100%",
+    height: 300
+  },
+  durationOverlay: {
+    position: "absolute",
+    right: 4,
+    bottom: 4
+  },
+  durationText: {
+    color: colors.fontColor,
+    fontSize: 13,
+    fontWeight: "bold",
+    letterSpacing: 0.3
+  },
 });

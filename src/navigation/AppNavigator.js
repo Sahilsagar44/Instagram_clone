@@ -120,7 +120,7 @@ function MainTabNavigator() {
 }
 const AppNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='Home'screenOptions={{ headerShown: false, orientation:'portrait'}}>
+        <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, orientation:'portrait'}}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
