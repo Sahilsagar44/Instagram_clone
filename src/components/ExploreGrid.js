@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, View, ActivityIndicator } from "react-native";
 import colors from "../constants/colors";
+import { FlashList } from '@shopify/flash-list';
 
 const ExploreGrid = () => {
     const exploreImages = Array.from({ length: 300 }, (_, i) => ({
@@ -52,7 +53,7 @@ const ExploreGrid = () => {
     return (
         <View style={styles.fullContainer}>
 
-            <FlatList
+            <FlashList
                 data={Array.from({ length: visibleBlocks })} // only render what’s visible
                 keyExtractor={(_, i) => `block-${i}`}
                 renderItem={({ index }) => <RenderBlock index={index} />}

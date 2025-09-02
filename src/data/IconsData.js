@@ -131,3 +131,60 @@ export const newPostPreviewIcons = [
         source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/edit.png'),
     }
 ]
+export const ReelPreviewIcons = [
+    {
+        name:'music',
+        iconName:'Music',
+        iconSet:'MaterialDesignIcons',
+    },
+    {
+        name:'',
+        iconName:'Font',
+        iconSet:'image',
+        source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/font.png'),
+    },
+    {
+        name:'sticker-emoji',
+        iconName:'Sticker',
+        iconSet:'MaterialDesignIcons',
+    },
+    {
+        name:'',
+        iconName:'Filters',
+        iconSet:'image',
+        source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/filter1.png'),
+    },
+    {
+        name:'',
+        iconName:'Posts',
+        iconSet:'image',
+        source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/layer.png'),
+    },
+    {
+        name:'microphone',
+        iconName:'Microphone',
+        iconSet:'MaterialDesignIcons',
+    },
+    {
+        name:'',
+        iconName:'Add Video',
+        iconSet:'image',
+        source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/addVideo.png'),
+    },
+    {
+        name:'closed-caption-outline',
+        iconName:'caption',
+        iconSet:'MaterialDesignIcons',
+    },
+    {
+        name:'',
+        iconName:'Edit',
+        iconSet:'image',
+        source: require('D:/sahil/react_native/Instagram_clone/src/assets/icons/edit.png'),
+    },
+    {
+        name:'download-outline',
+        iconName:'Download',
+        iconSet:'MaterialDesignIcons',
+    },
+]

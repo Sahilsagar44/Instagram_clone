@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "../../../constants/colors";
 import { newPostPreviewIcons } from "../../../data/IconsData";
@@ -7,123 +7,149 @@ import Video from "react-native-video";
 import { useIsFocused } from "@react-navigation/native";
 
 const PreviewScreen = ({ route, navigation }) => {
-    const { photo, uri, type, duration } = route.params || {};
-    const isFocused = useIsFocused()
+  const { photo, uri, type, duration, asset, mode } = route.params || {};
+  const isFocused = useIsFocused();
 
-    // normalize
-    const finalUri = photo || uri;
-    const finalType = type || (photo ? "image" : null);
+  // normalize
+  const finalUri = photo || asset?.uri || uri;
+  const finalType =
+    type || asset?.type || (photo ? "image" : "image"); // default: image
+  const finalDuration = duration || asset?.duration || null;
 
-    const handleNext = () => {
-        navigation.navigate("CaptionScreen", {
-            uri: finalUri,
-            type: finalType,
-            duration,
-        });
-    };
+  const handleNext = () => {
+    navigation.navigate("CaptionScreen", {
+      uri: finalUri,
+      type: finalType,
+      duration: finalDuration,
+      mode,
+    });
+  };
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Ionicons name="arrow-back-outline" size={30} color="#fff" />
-                    </TouchableOpacity>
-                    <Text style={styles.title}>Preview</Text>
-                </View>
-                <TouchableOpacity onPress={handleNext}>
-                    <Text style={styles.nextButton}>Next</Text>
-                </TouchableOpacity>
-            </View>
-
-            {finalType?.startsWith("video") ? (
-                <Video
-                    source={{ uri: finalUri }}
-                    style={styles.image}
-                    resizeMode="contain"
-                    paused={!isFocused} 
-                />
-            ) : (
-                <Image
-                    source={{ uri: finalUri }}
-                    style={styles.image}
-                    resizeMode="contain"
-                />
-            )}
-
-
-            <View style={styles.optionsList}>
-                {newPostPreviewIcons.map((item, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={[styles.optionItem]}
-                        onPress={() => console.log(item.iconName + ' clicked')}
-                    >
-                        {item.iconSet === "image" ? (
-                            <Image source={item.source} style={styles.optionIcon} />
-                        ) : (
-                            <Ionicons name={item.name} size={item.size} color={item.color} />
-                        )}
-                        <Text style={styles.optionTitle}>{item.iconName}</Text>
-                        {item.subTxt && <Text style={styles.subtxt}>{item.subTxt}</Text>}
-                    </TouchableOpacity>
-                ))}
-            </View>
+  return (
+    <View style={styles.container}>
+      {/* Header with back arrow and next aligned */}
+      <View style={styles.header}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+            <Ionicons name="close" size={30} color="#fff" />
+          </TouchableOpacity>
         </View>
-    );
+       
+      </View>
+
+      {/* Image or Video */}
+      {finalType?.startsWith("video") ? (
+        <Video
+          source={{ uri: finalUri }}
+          style={styles.media}
+          resizeMode="cover"
+          paused={!isFocused}
+          repeat
+        />
+      ) : (
+        <Image
+          source={{ uri: finalUri }}
+          style={styles.media}
+          resizeMode="cover"
+        />
+      )}
+
+      {/* Icon list horizontally scrollable near bottom */}
+      <View style={styles.optionsList}>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{ paddingHorizontal: 10, gap: 12 }}
+          showsHorizontalScrollIndicator={false}
+        >
+          {newPostPreviewIcons.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.optionItem}
+              onPress={() => console.log(item.iconName + ' clicked')}
+            >
+              {item.iconSet === "image" ? (
+                <Image source={item.source} style={styles.optionIcon} />
+              ) : (
+                <Ionicons name={item.name} size={item.size} color={item.color} />
+              )}
+              <Text style={styles.optionTitle}>{item.iconName}</Text>
+              {item.subTxt && <Text style={styles.subtxt}>{item.subTxt}</Text>}
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+        
+      </View>
+      <View style={styles.nextButtonContainer}>
+              <TouchableOpacity onPress={handleNext} style={styles.nextButtonTouchable}>
+                <Text style={styles.nextButton}>Next</Text>
+                <Ionicons name="arrow-forward" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+    </View>
+  );
 };
 
 export default PreviewScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.bgColor
-    },
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 20,
-        paddingVertical: 18,
-    },
-    title: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "600"
-    },
-    nextButton: {
-        color: colors.ButtonColor,
-        fontSize: 18,
-        fontWeight: "600"
-    },
-    image: {
-        flex: 1,
-        width: "100%"
-    },
-    optionsList: {
-        flexDirection: "row",
-        marginVertical: 20,
-        justifyContent: "space-evenly",
-        gap: 10,
-
-    },
-    optionItem: {
-        alignItems: "center",
-        paddingVertical: 10,
-        width: 70,
-        borderRadius: 10,
-        gap: 4,
-        backgroundColor: colors.smallButtonColor,
-
-    },
-    optionIcon: {
-        width: 20,
-        height: 20,
-        resizeMode: 'contain',
-    },
-    optionTitle: {
-        color: colors.fontColor,
-        fontSize: 14,
-    },
+container: {
+    flex: 1,
+    backgroundColor: colors.bgColor,
+  },
+  header: {
+    position: "absolute",
+    top: 30,
+    left: 20,
+    zIndex: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 20,
+    padding: 8,
+  },
+  media: {
+    height: '90%',    
+    width: '100%',
+    position: 'absolute',
+  },
+  optionsList: {
+    position: 'absolute',
+    bottom: 80,
+    width: '100%',
+    paddingVertical: 10,
+  },
+  optionItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(12, 12, 12, 0.5)',
+    marginRight: 4,
+  },
+  optionIcon: {
+    width: 50,
+    height: 25,
+    resizeMode: 'contain',
+  },
+  optionTitle:{
+    color:colors.fontColor
+  },
+  nextButtonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    zIndex: 20,
+  },
+  nextButtonTouchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.ButtonColor,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 25,
+  },
+  nextButton: {
+    color: colors.fontColor,
+    fontSize: 18,
+    fontWeight: "600",
+    marginRight: 8,
+  },
 });

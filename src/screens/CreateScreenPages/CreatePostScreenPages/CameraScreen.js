@@ -6,48 +6,45 @@ import {
   TouchableOpacity,
   Platform,
   Alert,
-  Image
+  Image,
 } from "react-native";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import colors from "../../../constants/colors";
-import { useIsFocused } from "@react-navigation/native";
-// import { launchImageLibrary } from "react-native-image-picker";
-import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Feather from "react-native-vector-icons/Feather";
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
+import { useIsFocused } from "@react-navigation/native";
+import colors from "../../../constants/colors";
 
-const CameraScreen = ({ navigation }) => {
+const CameraScreen = ({ navigation, route }) => {
+  const { mode = "post" } = route.params || {}; // 👈 mode passed from AssetGrid
   const [capturedPhoto, setCapturedPhoto] = useState(null);
-  const cameraRef = useRef(null);
   const [flashEnabled, setFlashEnabled] = useState(false);
-  const [photo,setPhoto] = useState([])
-  const [camera,setCamera] = useState(false);
-  const device = useCameraDevice(camera ? 'back' : 'front');
+  const [galleryPhotos, setGalleryPhotos] = useState([]);
+  const [useBackCamera, setUseBackCamera] = useState(true);
 
-
+  const cameraRef = useRef(null);
+  const device = useCameraDevice(useBackCamera ? "back" : "front");
   const isFocused = useIsFocused();
 
+  useEffect(() => {
+    if (isFocused) {
+      setCapturedPhoto(null);
+      openGallery();
+    }
+  }, [isFocused]);
 
   const openGallery = async () => {
-  try {
-    const result = await CameraRoll.getPhotos({
-      first: 30,
-      assetType: "All",
-    });
-    setPhoto(result.edges);
-  } catch (error) {
-    console.log("camera error:--", error);
-  }
-};
-
-
-  useEffect(() => {
-  if (isFocused) {
-    setCapturedPhoto(null);
-    openGallery(); // 👈 fetch photos from CameraRoll when screen opens
-  }
-}, [isFocused]);
+    try {
+      const result = await CameraRoll.getPhotos({
+        first: 30,
+        assetType: "All",
+      });
+      setGalleryPhotos(result.edges);
+    } catch (error) {
+      console.log("CameraRoll error:", error);
+    }
+  };
 
   const handleClose = () => {
     navigation?.goBack();
@@ -72,7 +69,15 @@ const CameraScreen = ({ navigation }) => {
         });
         const photoUri = `file://${photo.path}`;
         setCapturedPhoto(photoUri);
-        navigation.navigate("PreviewScreen", { photo: photoUri });
+
+        // Navigate based on mode
+        if (mode === "story") {
+          navigation.navigate("StoryPreviewScreen", { uri: photoUri, type: "photo" });
+        } else if (mode === "reel") {
+          navigation.navigate("ReelPreviewScreen", { uri: photoUri, type: "photo" });
+        } else {
+          navigation.navigate("PreviewScreen", { uri: photoUri, type: "photo" });
+        }
       }
     } catch (error) {
       console.error("Error taking photo:", error);
@@ -82,6 +87,7 @@ const CameraScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleClose}>
           <Ionicons name="close-outline" size={30} color="#fff" />
@@ -94,6 +100,7 @@ const CameraScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      {/* Camera */}
       <View style={styles.cameraContainer}>
         <Camera
           ref={cameraRef}
@@ -104,10 +111,15 @@ const CameraScreen = ({ navigation }) => {
         />
       </View>
 
+      {/* Controls */}
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.thumbnailContainer}>
-          {/* <Image /> */}
-          {photo.length > 0 && (<Image source={{uri: photo[0]?.node?.image.uri}} style={styles.thumbnailImage}/>)}
+          {galleryPhotos.length > 0 && (
+            <Image
+              source={{ uri: galleryPhotos[0]?.node?.image?.uri }}
+              style={styles.thumbnailImage}
+            />
+          )}
         </TouchableOpacity>
 
         {!capturedPhoto && (
@@ -115,8 +127,9 @@ const CameraScreen = ({ navigation }) => {
             <View style={styles.captureButtonInner} />
           </TouchableOpacity>
         )}
-        <TouchableOpacity onPress={()=> setCamera(!camera)}>
-          <Feather name='refresh-ccw' size={30} color={colors.postIconColor} />
+
+        <TouchableOpacity onPress={() => setUseBackCamera(!useBackCamera)}>
+          <Feather name="refresh-ccw" size={30} color={colors.postIconColor} />
         </TouchableOpacity>
       </View>
     </View>
@@ -128,44 +141,33 @@ export default CameraScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bgColor
+    backgroundColor: colors.bgColor,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 20,
-    position: 'absolute',
+    position: "absolute",
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "ios" ? 60 : 15,
-    width: '100%',
-    zIndex: 1
-  },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 20,
-  },
-  headerTitle: {
-    fontSize: 20,
-    color: colors.fontColor,
-    fontWeight: "500",
+    width: "100%",
+    zIndex: 1,
   },
   cameraContainer: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
     overflow: "hidden",
     backgroundColor: colors.bgColor,
-    justifyContent: 'space-between',
   },
   controlsContainer: {
-    justifyContent: 'space-around',
+    justifyContent: "space-around",
     position: "absolute",
     bottom: 40,
     left: 0,
     right: 0,
     alignItems: "center",
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   captureButton: {
     width: 70,
@@ -184,17 +186,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.whiteBorder,
   },
   thumbnailContainer: {
-    position: "relative",
     borderRadius: 10,
     borderColor: colors.whiteBorder,
     borderWidth: 2,
     width: 40,
-    height: 40
+    height: 40,
+    overflow: "hidden",
   },
-  thumbnailImage:{
-    position:'absolute',
-    width:'100%',
-    height:'100%',
-    borderRadius: 10
-  }
+  thumbnailImage: {
+    width: "100%",
+    height: "100%",
+  },
 });

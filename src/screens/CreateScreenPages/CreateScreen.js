@@ -18,7 +18,7 @@ import CreateReelScreen from "./CreateReelScreenPages/CreateReelScreen";
 import CreateStoryScreen from "./CreateStoryScreenPages/CreateStoryScreen";
 import CreateLiveScreen from "./CreateLiveScreenPages/CreateLiveScreen";
 
-const TABS = ["Post", "Story", "Reel", "Live"];
+const TABS = ["Post", "Story", "Reel"];
 
 const CreateScreen = ({ navigation }) => {
   const [isPermissionLoading, setIsPermissionLoading] = useState(true);
@@ -122,9 +122,6 @@ const CreateScreen = ({ navigation }) => {
         </View>
         <View key="3">
           <CreateReelScreen />
-        </View>
-        <View key="4">
-          <CreateLiveScreen />
         </View>
       </PagerView>
 
