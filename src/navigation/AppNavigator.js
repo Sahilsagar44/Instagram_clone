@@ -31,6 +31,9 @@ import PreviewScreen from '../screens/CreateScreenPages/CreatePostScreenPages/Pr
 import CameraScreen from '../screens/CreateScreenPages/CreatePostScreenPages/CameraScreen';
 import CreatePostScreen from '../screens/CreateScreenPages/CreatePostScreenPages/CreatePostScreen';
 import CreateScreen from '../screens/CreateScreenPages/CreateScreen';
+import CreateReelScreen from '../screens/CreateScreenPages/CreateReelScreenPages/CreateReelScreen';
+import ReelPreviewScreen from '../screens/CreateScreenPages/CreateReelScreenPages/ReelPreviewScreen';
+import ReelCameraScreen from '../screens/CreateScreenPages/CreateReelScreenPages/ReelCameraScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -138,10 +141,18 @@ const AppNavigator = () => {
             <Stack.Screen name="ProfileTabs" component={ProfileTabs} />
             {/* Create Screen */}
             <Stack.Screen name="CreateScreen" component={CreateScreen} />
+            {/*create Post Screen*/}
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} />
             <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
             <Stack.Screen name="CaptionScreen" component={CaptionScreen} />
+            {/*create Reel Screen*/}
+            <Stack.Screen name="CreateReelScreen" component={CreateReelScreen} />
+            <Stack.Screen name="ReelCameraScreen" component={ReelCameraScreen} />
+            <Stack.Screen name="ReelPreviewScreen" component={ReelPreviewScreen} />
+            {/*create Story Screen*/}
+
+            {/*create Live Screen*/}
             
         </Stack.Navigator>
     );

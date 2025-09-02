@@ -11,6 +11,20 @@ const MsgScreen = () => {
     const route = useRoute();
     const { chatId } = route.params;
     const chat = messageData.find(c => c.id === chatId);
+    const [message,setMessage] = useState('')
+
+    const handleSend = () => {
+        if (message.trim()) {
+            const newMessage = {
+                id: Date.now().toString(),
+                text: message,
+                timestamp: new Date().toLocaleTimeString(),
+                sentByMe: true
+            };
+            chat.messages.push(newMessage);
+            setMessage('');
+        }
+    };
 
     const renderMessage = ({ item }) => (
         <View
@@ -66,6 +80,9 @@ const MsgScreen = () => {
                 <TextInput
                     placeholder="Message..."
                     placeholderTextColor="#999"
+                    value={message}
+                    onChangeText={setMessage}
+                    handleSend={handleSend}
                     style={styles.input}
                 />
 

@@ -5,6 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import Video from "react-native-video";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const numColumns = 4;
 const screenWidth = Dimensions.get("window").width;
@@ -45,18 +46,28 @@ const CreatePostScreen = ({ navigation, mode }) => {
     }
   }, [photos, selectedAsset]);
 
+  const CACHE_KEY = 'cached_photos';
+
   const fetchPhotos = async () => {
     if (loading || !pageInfo.hasNextPage) return;
     setLoading(true);
 
     try {
+      const cached = await AsyncStorage.getItem(CACHE_KEY);
+      if (cached) {
+        setPhotos(JSON.parse(cached));
+      }
+
       const result = await CameraRoll.getPhotos({
-        first: 30,
+        first: 20,
         assetType: "All",
         after: pageInfo.endCursor,
       });
 
-      setPhotos((prev) => [...prev, ...result.edges]);
+      const newPhotos = [...photos, ...result.edges];
+      setPhotos(newPhotos);
+      await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(newPhotos));
+
       setPageInfo({
         hasNextPage: result.page_info.has_next_page,
         endCursor: result.page_info.end_cursor,
@@ -90,7 +101,7 @@ const CreatePostScreen = ({ navigation, mode }) => {
                 source={{ uri }}
                 style={{ width: 0, height: 0 }}
                 onLoad={(data) => handleVideoLoad(uri, data.duration)}
-                paused={!isFocused ? true : false}
+                paused={true}
               />
             )}
             {duration && (
@@ -128,23 +139,6 @@ const CreatePostScreen = ({ navigation, mode }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.previewContainer}>
-        {selectedAsset &&
-          (selectedAsset.type?.startsWith("video") ? (
-            <Video
-              key={selectedAsset.uri}
-              source={{ uri: selectedAsset.image.uri }}
-              style={styles.previewImage}
-              repeat
-              resizeMode="contain"
-              paused={!isFocused ? true : false}
-            />
-          ) : (
-
-            <Image source={{ uri: selectedAsset.image.uri }} style={styles.previewImage} />
-          ))}
-      </View>
-
       {/* Gallery */}
       <FlatList
         data={[{ isCamera: true }, ...photos]}
@@ -155,10 +149,26 @@ const CreatePostScreen = ({ navigation, mode }) => {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading ? <ActivityIndicator size="large" /> : null}
         contentContainerStyle={{ paddingVertical: 12 }}
-        initialNumToRender={12}
-        maxToRenderPerBatch={8}
-        windowSize={3}
-        removeClippedSubviews={true}
+        initialNumToRender={20}
+        maxToRenderPerBatch={12}
+        windowSize={21}  // Increase to keep more items mounted for smoother scroll back
+        removeClippedSubviews={false}
+        ListHeaderComponent={
+          <View style={styles.previewContainer}>
+            {selectedAsset && selectedAsset.type?.startsWith("video") ? (
+              <Video
+                key={selectedAsset.uri}
+                source={{ uri: selectedAsset.image.uri }}
+                style={styles.previewImage}
+                repeat
+                resizeMode="contain"
+                paused={!isFocused ? true : false}
+              />
+            ) : selectedAsset ? (
+              <Image source={{ uri: selectedAsset.image.uri }} style={styles.previewImage} />
+            ) : null}
+
+          </View>}
       />
     </View>
   );

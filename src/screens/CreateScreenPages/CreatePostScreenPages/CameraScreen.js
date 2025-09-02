@@ -30,27 +30,24 @@ const CameraScreen = ({ navigation }) => {
 
 
   const openGallery = async () => {
-    try {
-      const result = await CameraRoll.getPhotos({
-        first: 30,
-        assetType: "All",
-        after: pageInfo.endCursor,
-      });
-       setPhoto((prev) => [...prev, ...result.edges]);
-      // setPageInfo({
-      //   hasNextPage: result.page_info.has_next_page,
-      //   endCursor: result.page_info.end_cursor,
-      // });
-    } catch (error) {
-      console.log('camera error:--',error);
-    }
+  try {
+    const result = await CameraRoll.getPhotos({
+      first: 30,
+      assetType: "All",
+    });
+    setPhoto(result.edges);
+  } catch (error) {
+    console.log("camera error:--", error);
   }
+};
+
 
   useEffect(() => {
-    if (isFocused) {
-      setCapturedPhoto(null);
-    }
-  }, [isFocused]);
+  if (isFocused) {
+    setCapturedPhoto(null);
+    openGallery(); // 👈 fetch photos from CameraRoll when screen opens
+  }
+}, [isFocused]);
 
   const handleClose = () => {
     navigation?.goBack();
@@ -110,7 +107,7 @@ const CameraScreen = ({ navigation }) => {
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.thumbnailContainer}>
           {/* <Image /> */}
-
+          {photo.length > 0 && (<Image source={{uri: photo[0]?.node?.image.uri}} style={styles.thumbnailImage}/>)}
         </TouchableOpacity>
 
         {!capturedPhoto && (
@@ -187,10 +184,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.whiteBorder,
   },
   thumbnailContainer: {
+    position: "relative",
     borderRadius: 10,
     borderColor: colors.whiteBorder,
     borderWidth: 2,
     width: 40,
     height: 40
+  },
+  thumbnailImage:{
+    position:'absolute',
+    width:'100%',
+    height:'100%',
+    borderRadius: 10
   }
 });

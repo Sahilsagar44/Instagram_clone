@@ -11,6 +11,7 @@ import SendPage from './FunctionalityPages/SendPage';
 import MenuPage from './FunctionalityPages/MenuPage';
 import { useNavigation } from '@react-navigation/native';
 import { runOnJS } from 'react-native-worklets';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { height: screenHeight } = Dimensions.get('window')
 
@@ -39,44 +40,44 @@ const Feeds = ({ post, index }) => {
   const refRBSheetMenu = useRef()
 
   const triggerHeartAnimation = (x, y) => {
-  const heartSize = 100;
-  const halfContainer = heartSize / 2;
+    const heartSize = 100;
+    const halfContainer = heartSize / 2;
 
-  const heartX = Math.max(halfContainer, Math.min(x, styles.postImageContainer.height - halfContainer));
-  const heartY = Math.max(halfContainer, Math.min(y, styles.postImageContainer.height - halfContainer));
+    const heartX = Math.max(halfContainer, Math.min(x, styles.postImageContainer.height - halfContainer));
+    const heartY = Math.max(halfContainer, Math.min(y, styles.postImageContainer.height - halfContainer));
 
-  setTapPosition({ x: heartX, y: heartY });
+    setTapPosition({ x: heartX, y: heartY });
 
-  scaleAnimation.setValue(0.5);
-  opacityAnimation.setValue(1);
+    scaleAnimation.setValue(0.5);
+    opacityAnimation.setValue(1);
 
-  Animated.spring(scaleAnimation, {
-    toValue: 1,
-    friction: 3,
-    // bounce: 0,
-    useNativeDriver: true,
-  }).start(() => {
-    Animated.timing(opacityAnimation, {
-      toValue: 0,
-      duration: 200,
+    Animated.spring(scaleAnimation, {
+      toValue: 1,
+      friction: 3,
+      // bounce: 0,
       useNativeDriver: true,
-    }).start();
-  });
-};
+    }).start(() => {
+      Animated.timing(opacityAnimation, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    });
+  };
 
   const handleDoubleTap = (event) => {
-    const {x,y} = event
+    const { x, y } = event
     setIsLiked(true);
     setLikesCount((count) => (isLiked ? count : count + 1));
     triggerHeartAnimation(x, y);
 
-};
+  };
 
-const doubleTap = Gesture.Tap()
-  .numberOfTaps(2)
-  .onStart((event) => {
-    runOnJS(handleDoubleTap)(event);
-  });
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onStart((event) => {
+      runOnJS(handleDoubleTap)(event);
+    });
 
 
   return (
@@ -86,7 +87,7 @@ const doubleTap = Gesture.Tap()
           style={{ alignItems: 'center', flexDirection: 'row', gap: 10 }}
           onPress={() =>
             navigation.navigate('UserProfileScreen', {
-               userId: post.userId,
+              userId: post.userId,
             })
           }
         >
@@ -115,21 +116,33 @@ const doubleTap = Gesture.Tap()
             style={styles.postImage}
           />
           <View style={styles.heartAnimationContainer}>
-          <Animated.View
-            style={[
-              styles.animatedHeart,
-              {
-                left: tapPosition.x - 50,
-                top: tapPosition.y - 50,
-                transform: [{
-                  scale: scaleAnimation
-                }],
-                opacity: opacityAnimation
-              }
-            ]}
-          >
-            <MaterialIcons name="favorite" size={100} color="white" />
-          </Animated.View>
+            
+              <Animated.View
+                style={[
+                  styles.animatedHeart,
+                  {
+                    left: tapPosition.x - 50,
+                    top: tapPosition.y - 50,
+                    transform: [{
+                      scale: scaleAnimation
+                    }],
+                    opacity: opacityAnimation
+                  }
+                ]}
+              >
+                <LinearGradient
+              colors={["#ff7e5f", "#feb47b"]}
+              // style={{
+              //   padding: 12,
+              //   borderRadius: 40,
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              // }}
+            >
+                <MaterialIcons name="favorite" size={100} color="white" />
+                </LinearGradient>
+              </Animated.View>
+            
           </View>
         </View>
 
@@ -155,7 +168,7 @@ const doubleTap = Gesture.Tap()
 
         <TouchableOpacity
           onPress={() => {
-            setSelectedPostId(post.id);  
+            setSelectedPostId(post.id);
             refRBSheetComment.current.open();
           }}
         >
@@ -288,7 +301,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-}, 
+  },
   putterContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
